@@ -6,80 +6,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-function cargarProductosPorCampo(campo, valor) {
-  limpiarVista();
-
-  const zona = document.getElementById('productos');
-  zona.innerHTML = '<p style="text-align:center; font-size: 18px;">🔄 Cargando productos...</p>';
-
+ function cargarProductosPorMarca(marca) {
   fetch('https://stepup-proyect.onrender.com/api', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
-      limit: "90",
+      limit: "10",
       criteria: [
-        { nameField: campo, value: valor }
+        {
+          nameField: "brand",
+          value: marca
+        }
       ]
     })
   })
     .then(res => {
-      if (!res.ok) throw new Error(`Error del servidor: ${res.status}`);
+      if (!res.ok) {
+        return res.text().then(text => {
+          throw new Error(`Error del servidor: ${text}`);
+        });
+      }
       return res.json();
     })
     .then(data => {
-      if (!data.results || !Array.isArray(data.results)) {
-        zona.innerHTML = '<p style="text-align:center;">No se encontraron resultados.</p>';
+      if (!Array.isArray(data)) {
+        console.error('❌ La API no devolvió una lista:', data);
         return;
       }
 
-      productos = data.results
-        .filter(p =>
-          p.image?.original || p.image?.small || p.image?.thumbnail
-        )
-        .map(p => ({
-          _id: p.id?.toString(),
-          shoeName: p.name || p.title || 'Sin nombre',
-          brand: p.brand || 'Sin marca',
-          thumbnail:
-            p.image.original || p.image.small || p.image.thumbnail,
-          lowestResellPrice: {
-            stockx: p.retailPrice || 0
-          }
-        }));
+      productos = data.map(p => ({
+        _id: p.id?.toString(),
+        shoeName: p.name || p.title || 'Sin nombre',
+        brand: p.brand || 'Sin marca',
+        thumbnail: p.thumbnail || (p.images && p.images[0]) || 'img/placeholder.jpg',
+        lowestResellPrice: {
+          stockx: p.price || 0
+        }
+      }));
 
       currentList = productos;
-      filtrarYMostrar(productos, `${campo.toUpperCase()}: ${valor}`);
+      filtrarYMostrar(productos, marca.toUpperCase());
     })
     .catch(err => {
       console.error('🚨 Error al conectar con la API:', err.message);
-      zona.innerHTML = '<p style="text-align:center; color: red;">Error al cargar los productos.</p>';
     });
 }
 
 
-
-
-
-
-
-
   document.getElementById('btn-home').onclick = () => {
-  limpiarVista();
-  currentList = [];
-  document.getElementById('hero-container')?.classList.remove('hidden');
-  document.getElementById('categoria-titulo').innerText = '';
-};
-
+    currentList = [];
+    limpiarVista();
+    document.getElementById('hero-container')?.classList.remove('hidden');
+  };
 
   document.getElementById('btn-all').onclick = () => {
     currentList = productos.slice();
     filtrarYMostrar(currentList, 'Todo');
   };
 
-  document.getElementById('btn-men').onclick = () => cargarProductosPorCampo('gender', 'men');
-  document.getElementById('btn-women').onclick = () => cargarProductosPorCampo('gender', 'women');
+  document.getElementById('btn-men').onclick = () => cargarProductosPorMarca('nike');
+document.getElementById('btn-women').onclick = () => cargarProductosPorMarca('puma');
+document.getElementById('btn-jordan').onclick = () => cargarProductosPorMarca('jordan');
 
-  document.getElementById('btn-niño').onclick = () => cargarProductosPorMarca('gender', 'youth');
+
+
+
   document.getElementById('btn-new').onclick = () => alert('“Nuevas” pendiente');
   document.getElementById('btn-sale').onclick = () => alert('“Ofertas” pendiente');
 
@@ -183,16 +176,15 @@ function pintar(lista) {
   lista.forEach(p => {
     console.log('Imagen del producto:', p.thumbnail); // ✅ Verifica la URL en consola
     zona.innerHTML += `
-  <div class="card" onclick="mostrarProducto('${p._id}')">
-    <button class="fav-btn" onclick="event.stopPropagation(); marcarFavorito('${p._id}')">
-      ${favoritos.includes(p._id) ? '💖' : '🤍'}
-    </button>
-    <img src="${p.thumbnail}" alt="${p.shoeName}" onerror="this.src='https://via.placeholder.com/100?text=Sin+imagen';">
-    <h3>${p.shoeName}</h3>
-    <p>$${p.lowestResellPrice?.stockx || 'N/A'}</p>
-  </div>
-`;
-
+      <div class="card" onclick="mostrarProducto('${p._id}')">
+        <button class="fav-btn" onclick="event.stopPropagation(); marcarFavorito('${p._id}')">
+          ${favoritos.includes(p._id) ? '💖' : '🤍'}
+        </button>
+        <img src="${p.thumbnail}" alt="${p.shoeName}">
+        <h3>${p.shoeName}</h3>
+        <p>$${p.lowestResellPrice?.stockx || 'N/A'}</p>
+      </div>
+    `;
   });
 }
 
@@ -211,7 +203,7 @@ function pintar(lista) {
   }
 
   
-  const imagenesBanner = ['img/prin22.png','img/prin7.png'];
+  const imagenesBanner = ['/img/prin22.png','/img/prin7.png'];
   let indice = 0;
   const banner = document.getElementById('banner-img');
 

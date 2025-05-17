@@ -34,25 +34,22 @@
     }
 
     .logo-container {
-      width: 100px;
-      height: 100px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      perspective: 800px;
-      overflow: hidden;
-    }
-    
-    .logo {
-      width: 80px;
-      height: 80px;
-      background: url(/img/Logo.png);
-      background-size: cover;
-      background-position: center;
-      animation: rotar 7s linear infinite;
-     
-    }
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  overflow: hidden;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  animation: rotar 7s linear infinite;
+}
+
     
     @keyframes rotar {
       from {
@@ -325,7 +322,7 @@
       padding: 40px 20px;
       text-align: center;
       font-family: 'Urbanist', sans-serif;
-      background-image: url('/images/graffiti-bg.png');
+      background-image: url('images/graffiti-bg.png');
       background-size: cover;
       background-position: center;
       border-top: 4px solid #ff2e63;
@@ -428,6 +425,91 @@
   display: none;
 }
 
+
+/* ============================
+   RESPONSIVE: móvil y tablets
+============================ */
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+
+  .nav-links, .nav-right {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .nav-links button,
+  .favorites,
+  .login,
+  .cart {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .card img {
+    height: 120px;
+  }
+
+  .card {
+    padding: 0.8rem;
+  }
+
+  .categoria-titulo {
+    font-size: 18px;
+    margin: 10px;
+  }
+
+  .brand-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  }
+
+  .logo-container {
+    width: 80px;
+    height: 80px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-width: 320px;
+    padding: 15px;
+  }
+
+  .cart-drawer {
+    width: 100%;
+  }
+
+  .cart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer {
+    padding: 30px 15px;
+  }
+
+  .footer-links a,
+  .footer-socials a {
+    display: block;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+}
 
 
 
