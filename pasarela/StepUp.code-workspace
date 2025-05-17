@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../Downloads/Sneaks-API-master"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "StepUp"
+	}
+}

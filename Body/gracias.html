@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gracias por su compra</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+    .factura {
+      background: white;
+      display: inline-block;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="factura">
+    <h1>¡Gracias por su compra!</h1>
+    <p>Su transacción ha sido completada con éxito.</p>
+    <h3>Factura</h3>
+    <p>Producto: Concierto Bad bunny</p>
+    <p>Precio: $99.00</p>
+    <p>Fecha: <span id="fecha"></span></p>
+  </div>
+
+  <script>
+    const fecha = new Date().toLocaleDateString();
+    document.getElementById('fecha').textContent = fecha;
+  </script>
+</body>
+</html>

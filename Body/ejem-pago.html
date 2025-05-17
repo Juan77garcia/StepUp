@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="payment-form">
+  <div id="card-element"></div>
+  <button type="submit">Pagar</button>
+</form>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe('pk_test_TU_CLAVE_PUBLICA');
+  const elements = stripe.elements();
+  const card = elements.create('card');
+  card.mount('#card-element');
+
+  const form = document.getElementById('payment-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { paymentMethod } = await stripe.createPaymentMethod('card', card);
+    const response = await fetch('/pagar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paymentMethodId: paymentMethod.id })
+    });
+    const result = await response.json();
+    alert(result.message);
+  });
+</script>
+
+</body>
+</html>

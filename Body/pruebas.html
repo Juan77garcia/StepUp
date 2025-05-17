@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Probar API Sneakers</title>
+</head>
+<body>
+  <h2>Resultado de la API</h2>
+  <pre id="resultado">Cargando...</pre>
+
+  <script>
+    // Parámetros de filtrado
+const limit = 10;
+const brand = 'jordan';
+
+const url = `https://stepup-proyect.onrender.com/api?limit=${limit}&brand=${brand}`;
+
+fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error en la solicitud');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Zapatillas filtradas:', data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+  </script>
+</body>
+</html>

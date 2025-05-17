@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrarse</title>
+  <link rel="stylesheet" href="/estilos/registro.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="register-container">
+  <div class="logo">StepUp</div>
+  <p style="font-size: 30px;">Crear cuenta</p>
+  <form class="register-form" id="register-form">
+    <input type="text" name="nombre" placeholder="Nombre completo" required>
+    <input type="email" name="email" placeholder="Correo electrónico" required>
+    <input type="password" name="password" placeholder="Contraseña" required>
+    <button type="submit">Registrarse</button>
+  </form>
+  <div class="register-link">
+    ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
+  </div>
+  <p id="mensaje"></p>
+</div>
+
+<script src="/JavaScript/registro.js"></script>
+</body>
+</html>
