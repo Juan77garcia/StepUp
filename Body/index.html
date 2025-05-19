@@ -1,131 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda de Zapatillas</title>
-  <link rel="stylesheet" href="estilos/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StepUp</title>
+  <link rel="stylesheet" href="estilos/prueba.css" />
+  <script defer src="JavaScript/Prueba.js"></script>
 </head>
-
 <body>
-
-  <!-- en esta parte tengo en menu de navegación -->
-  <nav class="navbar">
-   <div class="logo-container">
-  <img src="img/Logo.png" class="logo" alt="Logo de StepUp">
-</div>
-
+  <header class="navbar">
+    <a href="pruebas.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
+    <nav class="navbar-links">
+      <a href="#" onclick="mostrarInicio()">Inicio</a>
+      <a href="#" onclick="filtrarPorGenero('men')">Hombres</a>
+      <a href="#" onclick="filtrarPorGenero('women')">Mujeres</a>
+      <a href="#" onclick="filtrarPorGenero('child')">Niño</a>
+      <a href="#" onclick="filtrarPorGenero('unisex')">Unisex</a>
+      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Nuevas</a>
+      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Ofertas</a>
+      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Marcas</a>
+      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a>
+    </nav>
+    <div class="navbar-icons">
+      <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
+      <i>❤️</i>
+      <a href="login.html"><i>👤</i></a>
+      <i>🛒</i>
     </div>
+  </header>
 
-    <div class="nav-links">
-      <button id="btn-home">Inicio</button>
-      <button id="btn-men">Hombres</button>
-      <button id="btn-women">Mujeres</button>
-      <button id="btn-new">Nuevas</button>
-      <button id="btn-sale">Ofertas</button>
-      <button id="btn-niño">Niño</button>
-      <!--<button id="btn-jordan">Jordan</button>-->
+  <div class="layout" id="layout">
+    <aside id="filtros" class="sidebar oculto-en-inicio">
+      <h3>Filtrar</h3>
+      <select id="marcaFiltro">
+      <option value="">Marcas</option>
+      <option value="nike">Nike</option>
+      <option value="adidas">Adidas</option>
+      <option value="jordan">Jordan</option>
+      <option value="new balance">New Balance</option>
+      <option value="puma">Puma</option>
+      <option value="reebok">Reebok</option>
+      <option value="vans">Vans</option>
+      <option value="asics">Asics</option>
+      <option value="gucci">Gucci</option>
+      </select>
+      <input type="number" id="precioMin" placeholder="€ mínimo" />
+      <input type="number" id="precioMax" placeholder="€ máximo" />
+      <button onclick="aplicarFiltros()">Aplicar filtros</button>
+    </aside>
 
-
-      <div class="mega-dropdown">  
-        <button class="dropdown-toggle">Marcas ▾</button>
-        <div class="mega-menu">
-          <div class="brand-grid">
-            <button onclick="filtrarPorMarca('nike')"><img src="img/nike.jpg" alt="Nike"></button>
-            <button onclick="filtrarPorMarca('adidas')"><img src="img/Adidas.png" alt="Adidas"></button>
-            <button onclick="filtrarPorMarca('jordan')"><img src="img/jordan.jpg" alt="Jordan"></button>
-            <button onclick="filtrarPorMarca('new balance')"><img src="img/balance.png" alt="New Balance"></button>
-            <button onclick="filtrarPorMarca('converse')"><img src="img/conv.jpg" alt="Converse"></button>
-            <button onclick="filtrarPorMarca('puma')"><img src="img/puma.png" alt="Puma"></button>
-            <button onclick="filtrarPorMarca('reebok')"><img src="img/reebok.png" alt="Reebok"></button>
-            <button onclick="filtrarPorMarca('vans')"><img src="img/vans.png" alt="Vans"></button>
-            <button onclick="filtrarPorMarca('asics')"><img src="img/asics.png" alt="ASICS"></button>
-            <button onclick="filtrarPorMarca('hoka one one')"><img src="img/hoka.png" alt="HOKA ONE ONE"></button>
-            <button onclick="filtrarPorMarca('timberland')"><img src="img/timberland.png" alt="Timberland"></button>
-            <button onclick="filtrarPorMarca('crocs')"><img src="img/crocs.png" alt="Crocs"></button>
-            <button onclick="filtrarPorMarca('salomon')"><img src="img/salomin.jpg" alt="Salomon"></button>
-            <button onclick="filtrarPorMarca('balenciaga')"><img src="img/balenciaga.jpg" alt="Balenciaga"></button>
-            <button onclick="filtrarPorMarca('gucci')"><img src="img/gucci.png" alt="Gucci"></button>
-          </div>
-        </div>
+    <div class="contenido">
+      <div id="hero-container" class="hero-banner">
+        <img id="banner-img" src="img/prin7.png" alt="Banner de inicio" />
       </div>
-      
-      <button id="btn-all">Todo</button>
+      <div id="resultado" class="grid-contenedor"></div>
     </div>
-
-    <div class="nav-right">
-      <div class="search-bar">
-        <input type="text" id="search" placeholder="Buscar productos..." oninput="filtrarProductos()">
-      </div>
-      <button class="favorites" onclick="verFavoritos()">♥️</button>
-      <a href="login.html"><button class="login">👤</button></a>
-      <button class="cart">🛒 (0)</button>
-    </div>
-  </nav>
-
-  <!-- aqui tengo la imagen principal de la web-->
-  <div id="hero-container">
-    <header class="hero-banner">
-  <img id="banner-img" src="img/prin7.png" alt="Banner de marcas">
-</header>
-
   </div>
 
-  <div id="categoria-titulo" class="categoria-titulo"></div>
-
-
-  
-  <!--aqui tengo los productos-->
-  <div id="productos"></div>
-
-
-  <div id="producto-modal" class="modal hidden">
-    <div class="modal-content" id="modal-content"></div>
-  </div>
-
-  <section id="productos-caros" class="productos-caros hidden">
-  <h2 style="text-align:center;">🔥 Top Productos Más Caros 🔥</h2>
-  <div id="caros-lista" class="caros-lista"></div>
-</section>
-
-
-<div id="cart-drawer" class="cart-drawer hidden">
-  <div class="cart-header">
-    <span>🛒 Tu Cesta</span>
-    <button id="close-cart">✖</button>
-  </div>
-  <div class="cart-body">
-    <p>La cesta está vacía</p>
-  </div>
-</div>
-
-
-
-
-  <!-- aqui tengo el pie de pagina-->
   <footer class="footer">
-    <div class="footer-container">
-      <h2 class="brand">STEP UP</h2>
-      <p class="tagline">Eleva tu estilo urbano</p>
-  
-      <div class="footer-links">
-        <a href="/shop">Tienda</a>
-        <a href="/about">Sobre Nosotros</a>
-        <a href="/contact">Contacto</a>
-        <a href="/faq">Preguntas Frecuentes</a>
-      </div>
-  
-      <div class="footer-socials">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-      </div>
-  
-      <p class="copyright">© 2025 Step Up. Todos los derechos reservados.</p>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <h2>StepUp</h2>
+      <p>Sube tu estilo. Cada paso cuenta.</p>
     </div>
-  </footer>
-  
+    <div class="footer-links">
+      <a href="#">Inicio</a>
+      <a href="#">Colección</a>
+      <a href="#">Ofertas</a>
+      <a href="#">Contacto</a>
+    </div>
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 StepUp. Todos los derechos reservados.</p>
+  </div>
+</footer>
 
-  <script src="JavaScript/script.js"></script>
 </body>
 </html>
