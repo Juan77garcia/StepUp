@@ -1,16 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StepUp</title>
-  <link rel="stylesheet" href="estilos/prueba.css" />
-  <script defer src="JavaScript/Prueba.js"></script>
+  <link rel="stylesheet" href="estilos/style.css" />
+  <script defer src="JavaScript/script.js"></script>
 </head>
 <body>
   <header class="navbar">
-    <a href="pruebas.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
+    <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
     <nav class="navbar-links">
       <a href="#" onclick="mostrarInicio()">Inicio</a>
       <a href="#" onclick="filtrarPorGenero('men')">Hombres</a>
@@ -24,9 +23,9 @@
     </nav>
     <div class="navbar-icons">
       <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
-      <i>❤️</i>
+      <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
       <a href="login.html"><i>👤</i></a>
-      <i>🛒</i>
+      <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
     </div>
   </header>
 
@@ -34,16 +33,16 @@
     <aside id="filtros" class="sidebar oculto-en-inicio">
       <h3>Filtrar</h3>
       <select id="marcaFiltro">
-      <option value="">Marcas</option>
-      <option value="nike">Nike</option>
-      <option value="adidas">Adidas</option>
-      <option value="jordan">Jordan</option>
-      <option value="new balance">New Balance</option>
-      <option value="puma">Puma</option>
-      <option value="reebok">Reebok</option>
-      <option value="vans">Vans</option>
-      <option value="asics">Asics</option>
-      <option value="gucci">Gucci</option>
+        <option value="">Marcas</option>
+        <option value="nike">Nike</option>
+        <option value="adidas">Adidas</option>
+        <option value="jordan">Jordan</option>
+        <option value="new balance">New Balance</option>
+        <option value="puma">Puma</option>
+        <option value="reebok">Reebok</option>
+        <option value="vans">Vans</option>
+        <option value="asics">Asics</option>
+        <option value="gucci">Gucci</option>
       </select>
       <input type="number" id="precioMin" placeholder="€ mínimo" />
       <input type="number" id="precioMax" placeholder="€ máximo" />
@@ -54,32 +53,57 @@
       <div id="hero-container" class="hero-banner">
         <img id="banner-img" src="img/prin7.png" alt="Banner de inicio" />
       </div>
-      <div id="resultado" class="grid-contenedor"></div>
+      <main>
+        <div id="resultado" class="grid-contenedor"></div>
+      </main>
     </div>
+  </div><br><br>
+  <section id="zapas-caras" class="seccion-caras oculto-en-inicio">
+  <h2>Zapatillas más caras</h2>
+  <div id="contenedor-caras" class="grid-contenedor"></div>
+</section>
+
+
+  <!-- MODAL CARRITO DESLIZANTE -->
+  <!-- Carrito lateral -->
+<div id="carrito-modal" class="carrito-lateral oculto">
+  <div class="carrito-contenido">
+    <button onclick="cerrarCarrito()" class="cerrar-carrito">X</button>
+    <h3>Tu cesta</h3>
+    <ul id="lista-carrito"></ul>
+    <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
+
+<!-- Nuevo botón "Ir a la cesta" -->
+<button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
+
+<!-- Botón "Seguir comprando" -->
+<button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
   </div>
+</div>
+
+
 
   <footer class="footer">
-  <div class="footer-content">
-    <div class="footer-logo">
-      <h2>StepUp</h2>
-      <p>Sube tu estilo. Cada paso cuenta.</p>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2>StepUp</h2>
+        <p>Sube tu estilo. Cada paso cuenta.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Inicio</a>
+        <a href="#">Colección</a>
+        <a href="#">Ofertas</a>
+        <a href="#">Contacto</a>
+      </div>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="#">Inicio</a>
-      <a href="#">Colección</a>
-      <a href="#">Ofertas</a>
-      <a href="#">Contacto</a>
+    <div class="footer-bottom">
+      <p>&copy; 2025 StepUp. Todos los derechos reservados.</p>
     </div>
-    <div class="footer-social">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-tiktok"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 StepUp. Todos los derechos reservados.</p>
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>

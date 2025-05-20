@@ -82,10 +82,12 @@ body {
 }
 .grid-contenedor {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  padding: 20px;
+  align-items: start; /* ✨ Evita estirar verticalmente */
 }
+
 .card-zapatilla {
   background: white;
   border-radius: 10px;
@@ -94,16 +96,37 @@ body {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+  height: 100%; /* ✨ Asegura que todas ocupen el mismo alto */
+  max-width: 300px; /* ✨ Controla el tamaño de cada card */
+  margin: auto; /* ✨ Centra si sobran espacios */
+}
+
+.favorito-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #dc3545;
 }
 .card-zapatilla:hover {
   transform: scale(1.03);
 }
+
 .card-zapatilla img {
   width: 100%;
   border-radius: 6px;
 }
+
 .card-zapatilla .info {
   padding: 10px 0;
+}
+.card-zapatilla .favorito-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #dc3545;
+  margin-bottom: 8px;
 }
 .card-zapatilla button {
   background: #28a745;
@@ -113,6 +136,62 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.seccion-caras {
+  padding: 20px;
+  background: #fff;
+}
+
+.seccion-caras h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+}
+.grid-caras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+
+
+.zapa-cara {
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.zapa-cara img {
+  width: 20%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.zapa-cara-info h3 {
+  font-size: 18px;
+  margin: 1px 0 6px;
+}
+
+.zapa-cara-info p {
+  margin: 4px 0;
+}
+
+.zapa-cara button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
 .logo-container {
   width: 100px;
   height: 100px;
@@ -123,6 +202,97 @@ body {
   perspective: 800px;
   overflow: hidden;
 }
+
+.carrito-lateral {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 350px;
+  background: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.carrito-lateral.visible {
+  transform: translateX(0);
+}
+
+.carrito-contenido {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.carrito-contenido h3 {
+  margin-top: 0;
+}
+
+.carrito-contenido ul {
+  list-style: none;
+  padding: 0;
+}
+
+.carrito-contenido li {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cerrar-carrito {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.seguir-btn {
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  border: none;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.vacio {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 16px;
+  color: #666;
+}
+
+.ir-cesta-btn {
+  background: #222;
+  color: white;
+  padding: 8px;
+  border: none;
+  width: 100%;
+  border-radius: 4px;
+  margin: 10px 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+.ir-cesta-btn:hover {
+  background: #000;
+}
+
+#icono-favoritos {
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  color: #dc3545;
+}
+
+
 
 .logo {
   width: 80px;
