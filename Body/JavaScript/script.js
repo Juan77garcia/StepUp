@@ -1,11 +1,18 @@
+// =========================
+// Marcas válidas para búsqueda rápida
+// =========================
 const MARCAS_VALIDAS = [
   "nike", "adidas", "jordan", "new balance", "converse",
-  "puma", "reebok", "vans", "asics", "hoka one one",
-  "timberland", "crocs", "salomon", "balenciaga", "gucci"
+  "puma", "reebok", "vans", "asics", "hoka one one"
+  , "crocs", "salomon", "balenciaga", "gucci",
+  "alexander mcqueen", "dior", "off-white","golden goose"
 ];
 
-let zapatillasCargadas = [];
+let zapatillasCargadas = []; // Se guarda el resultado de la última búsqueda para usar en favoritos o carrito
 
+// =========================
+// Búsqueda por input
+// =========================
 const input = document.getElementById("marcaInput");
 input.addEventListener("keyup", () => {
   const marca = input.value.trim().toLowerCase();
@@ -16,7 +23,9 @@ input.addEventListener("keyup", () => {
   }
 });
 
-// -------------------- MOSTRAR / OCULTAR ------------------
+// =========================
+// Mostrar/Ocultar secciones
+// =========================
 
 function mostrarInicio() {
   document.getElementById("hero-container").classList.remove("hidden");
@@ -33,7 +42,9 @@ function mostrarFiltros() {
   document.getElementById("filtros").classList.remove("oculto-en-inicio");
 }
 
-// -------------------- FILTROS Y BÚSQUEDA ------------------
+// =========================
+// Filtros dinámicos
+// =========================
 
 function filtrarPorGenero(genero) {
   ocultarHero();
@@ -54,19 +65,36 @@ function buscarZapatillasSoloMarcasValidas() {
 
 function aplicarFiltros() {
   ocultarHero();
-  const marca = document.getElementById("marcaFiltro").value;
-  const precioMin = document.getElementById("precioMin").value;
-  const precioMax = document.getElementById("precioMax").value;
+
+  const marca = document.getElementById("marcaFiltro").value.trim();
+  const precioMin = parseInt(document.getElementById("precioMin").value);
+  const precioMax = parseInt(document.getElementById("precioMax").value);
 
   const criterios = [];
-  if (marca) criterios.push({ nameField: "brand", value: marca });
-  if (precioMin) criterios.push({ nameField: "retailPrice", min: parseInt(precioMin) });
-  if (precioMax) criterios.push({ nameField: "retailPrice", max: parseInt(precioMax) });
 
+  // Si se ha seleccionado una marca válida
+  if (marca) {
+    criterios.push({ nameField: "brand", value: marca });
+  }
+
+  // Si se ha indicado al menos un límite de precio
+  if (!isNaN(precioMin) || !isNaN(precioMax)) {
+    const filtroPrecio = { nameField: "retailPrice" };
+    if (!isNaN(precioMin)) filtroPrecio.min = precioMin;
+    if (!isNaN(precioMax)) filtroPrecio.max = precioMax;
+    criterios.push(filtroPrecio);
+  }
+
+  // Mostrar zapatillas según los criterios
   buscarZapatillas(criterios);
+  console.log("Criterios enviados:", criterios);
+
 }
 
-// -------------------- API CALL ------------------
+
+// =========================
+// Llamada a la API
+// =========================
 
 function buscarZapatillas(criterios) {
   const resultado = document.getElementById("resultado");
@@ -75,7 +103,7 @@ function buscarZapatillas(criterios) {
   fetch("https://stepup-proyect.onrender.com/api", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ limit: "95", criteria: criterios })
+    body: JSON.stringify({ limit: "98", criteria: criterios })
   })
     .then(res => res.json())
     .then(data => {
@@ -90,12 +118,11 @@ function buscarZapatillas(criterios) {
     });
 }
 
-// -------------------- MOSTRAR ZAPATILLAS ------------------
+// =========================
+// Mostrar tarjetas de zapatillas
+// =========================
 
 function mostrarZapatillas(zapatillas) {
-
-  document.getElementById("zapas-caras").classList.add("oculto-en-inicio");;
-
   const resultado = document.getElementById("resultado");
   resultado.innerHTML = "";
   zapatillasCargadas = zapatillas;
@@ -107,11 +134,37 @@ function mostrarZapatillas(zapatillas) {
     const card = document.createElement("div");
     card.className = "card-zapatilla";
 
+    // 👉 Hacer clic en la tarjeta lleva a producto.html
+   card.addEventListener("click", () => {
+  localStorage.setItem("productoSeleccionado", JSON.stringify(z));
+  window.location.href = "producto.html";
+});
+
+
+    // 🖼️ Imagen principal
+    const imgElement = document.createElement("img");
+    imgElement.src = img;
+    imgElement.alt = z.name;
+
+    // 🔍 Botón para ampliar imagen
+    const zoomBtn = document.createElement("span");
+    zoomBtn.className = "zoom-icon";
+    zoomBtn.textContent = "⤢";
+    zoomBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // ⛔ evita que se redireccione
+      ampliarZapatilla(img);
+    });
+
+    // ❤️ Botón de favorito
     const favBtn = document.createElement("button");
     favBtn.className = "favorito-btn";
     favBtn.textContent = esFavorito(z) ? "❤️" : "🤍";
-    favBtn.addEventListener("click", () => toggleFavorito(z));
+    favBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // ⛔ evita que se redireccione
+      toggleFavorito(z);
+    });
 
+    // ℹ️ Info de zapatilla
     const info = document.createElement("div");
     info.className = "info";
     info.innerHTML = `
@@ -121,23 +174,23 @@ function mostrarZapatillas(zapatillas) {
       <p><strong>Precio:</strong> €${z.retailPrice || "N/A"}</p>
     `;
 
-    const btnCarrito = document.createElement("button");
-    btnCarrito.textContent = "Añadir a la cesta";
-    btnCarrito.addEventListener("click", () => añadirAlCarrito(z));
-    info.appendChild(btnCarrito);
-
-    card.innerHTML = `<img src="${img}" alt="${z.name}">`;
+    // 📦 Montar tarjeta
+    card.appendChild(imgElement);
+    card.appendChild(zoomBtn);
     card.appendChild(favBtn);
     card.appendChild(info);
     resultado.appendChild(card);
   });
 }
 
-// -------------------- FAVORITOS ------------------
+
+// =========================
+// Favoritos
+// =========================
+
 function mostrarFavoritos() {
   const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
-  // Ocultar el hero y mostrar los filtros si es necesario
   ocultarHero();
   mostrarFiltros();
 
@@ -146,7 +199,7 @@ function mostrarFavoritos() {
     return;
   }
 
-  mostrarZapatillas(favoritos); // Ya tienes esta función, se reutiliza
+  mostrarZapatillas(favoritos);
 }
 
 function esFavorito(zapatilla) {
@@ -166,7 +219,10 @@ function toggleFavorito(zapatilla) {
   mostrarZapatillas(zapatillasCargadas);
 }
 
-//-- carrito
+// =========================
+// Carrito
+// =========================
+
 function mostrarCarrito() {
   const modal = document.getElementById("carrito-modal");
   const lista = document.getElementById("lista-carrito");
@@ -212,7 +268,7 @@ function añadirAlCarrito(zapatilla) {
   carrito.push(zapatilla);
   localStorage.setItem("carrito", JSON.stringify(carrito));
   actualizarContadorCarrito();
-  mostrarCarrito(); // opcional: mostrar inmediatamente
+  mostrarCarrito(); // Mostrar de inmediato
 }
 
 function actualizarContadorCarrito() {
@@ -222,23 +278,17 @@ function actualizarContadorCarrito() {
     contador.textContent = carrito.length;
   }
 }
+
 function irACesta() {
   alert("Aquí irías a la página de pago o resumen de compra. 🚀");
-  // Si tienes una página real puedes usar:
-  // window.location.href = "cesta.html";
+  //window.location.href = "cesta.html"; // si tienes página
 }
 
+// =========================
+// Banner rotativo de inicio
+// =========================
 
-document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
-
-
-
-
-
-
-// -------------------- BANNER ------------------
-
-const imagenesBanner = ['img/prin7.png', 'img/prin22.png'];
+const imagenesBanner = ['img/prin8.png', 'img/prin24.png'];
 let indice = 0;
 const banner = document.getElementById('banner-img');
 
@@ -253,73 +303,54 @@ if (banner) {
   }, 10000);
 }
 
-// -------------------- INICIO AUTOMÁTICO ------------------
+// =========================
+// Al cargar la página
+// =========================
 
 document.addEventListener("DOMContentLoaded", () => {
   actualizarContadorCarrito();
-  mostrarInicio(); // muestra banner
+  mostrarInicio(); // Solo banner al inicio
 });
 
-//------------mostrar al inicio----------------//
 
-function mostrarInicio() {
-  document.getElementById("hero-container").classList.remove("hidden");
-  document.getElementById("filtros").classList.add("oculto-en-inicio");
-  document.getElementById("resultado").innerHTML = "";
-  document.getElementById("zapas-caras").classList.remove("oculto-en-inicio");
+// Activar clic en cada logo para filtrar por marca
+document.addEventListener("DOMContentLoaded", () => {
+  const logos = document.querySelectorAll(".grid-marcas img");
 
-  // mostrar las más caras
-  fetch("https://stepup-proyect.onrender.com/api", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ limit: 100, criteria: [] })
-  })
-    .then(res => res.json())
-    .then(data => {
-      const zapatillas = data.results || [];
-      const masCaras = zapatillas
-        .filter(z => z.retailPrice)
-        .sort((a, b) => b.retailPrice - a.retailPrice)
-        .slice(0, 4); // top 4 más caras
-      mostrarZapatillasEnInicio(masCaras);
+  logos.forEach(logo => {
+    logo.addEventListener("click", () => {
+      const marca = logo.getAttribute("data-marca");
+      if (marca) {
+        ocultarHero();
+        mostrarFiltros();
+        buscarZapatillas([{ nameField: "brand", value: marca }]);
+      }
     });
-}
-
- function mostrarZapatillasEnInicio(zapatillas) {
-  const contenedor = document.getElementById("zapas-caras");
-  contenedor.classList.remove("oculto-en-inicio");
-
-  // Filtrar solo las que tienen imagen y precio
-  const validas = zapatillas.filter(z => z.image?.original && z.retailPrice);
-
-  // Ordenar por precio descendente y tomar las top 4 más caras
-  const topCaras = validas.sort((a, b) => b.retailPrice - a.retailPrice).slice(0, 4);
-
-  const grid = document.createElement("div");
-  grid.className = "grid-caras";
-
-  topCaras.forEach(z => {
-    const card = document.createElement("div");
-    card.className = "zapa-cara";
-
-    card.innerHTML = `
-      <img src="${z.image.original}" alt="${z.name}">
-      <div class="zapa-cara-info">
-        <h3>${z.name}</h3>
-        <p>${z.brand}</p>
-        <p><strong>€ ${z.retailPrice}</strong></p>
-        <button onclick='añadirAlCarrito(${JSON.stringify(z)})'>Añadir a la cesta</button>
-      </div>
-    `;
-
-    grid.appendChild(card);
   });
+});
 
-  contenedor.innerHTML = `
-    <h2 style="text-align: center;">Zapatillas más caras</h2>
-  `;
-  contenedor.appendChild(grid);
+
+function ampliarZapatilla(url) {
+  const modal = document.getElementById("modal-zapatilla");
+  const modalImg = document.getElementById("img-modal-zapa");
+  modalImg.src = url;
+  modal.style.display = "flex";
 }
 
+document.getElementById("cerrar-modal-zapa").addEventListener("click", () => {
+  document.getElementById("modal-zapatilla").style.display = "none";
+});
 
-//------------mostrar al inicio----------------//
+window.addEventListener("click", (e) => {
+  const modal = document.getElementById("modal-zapatilla");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+//----destacados----//
+
+
+
+
+

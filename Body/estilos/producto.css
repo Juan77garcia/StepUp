@@ -1,8 +1,123 @@
+
 body {
   margin: 0;
-  font-family: Thin 100 Italic;
+  font-family: 'Inter', sans-serif;
   background: #f8f8f8;
 }
+
+.producto-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 60px;
+  max-width: 1200px;
+  margin: auto;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.producto-imagen {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.producto-imagen img {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.producto-info {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.producto-info h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: #111;
+}
+
+.producto-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.producto-info label {
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+select, input[type="number"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 200px;
+}
+
+button#btn-cesta {
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 1rem;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+}
+
+
+
+/* Estilo para botones de tallas */
+.tallas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.talla-btn {
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 10px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: 0.2s ease;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.talla-btn:hover {
+  background: #e2e2e2;
+}
+
+.talla-btn.selected {
+  border: 2px solid black;
+  background: #111;
+  color: white;
+}
+
+.talla-btn span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #555;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -20,17 +135,9 @@ body {
   color: black;
   font-weight: bold;
 }
-.navbar-icons .material-icons {
-  font-size: 24px;
-  color: #111 !important; /* Fuerza el color negro */
-  cursor: pointer;
-  margin: 0 8px;
-}
-
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 17px;
 }
 .navbar-icons input {
   padding: 5px 10px;
@@ -545,44 +652,4 @@ body {
   .footer-links, .footer-social {
     margin-top: 20px;
   }
-}
-
-
-
-
-
-
-
-
-
-.inicio-vitrina {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  padding: 40px 20px;
-}
-
-.vitrina-item {
-  text-align: center;
-  cursor: pointer;
-  max-width: 160px;
-  transition: transform 0.2s ease;
-}
-
-.vitrina-item img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-.vitrina-item p {
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #111;
-}
-
-.vitrina-item:hover {
-  transform: scale(1.05);
 }

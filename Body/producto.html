@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle del Producto</title>
+  <link rel="stylesheet" href="estilos/producto.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet" />
+</head>
+<body>
+<header class="navbar">
+  <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
+  <nav class="navbar-links">
+    <ul class="navbar-menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html?filtro=men">Hombres</a></li>
+      <li><a href="index.html?filtro=women">Mujeres</a></li>
+      <li><a href="index.html?filtro=child">Niños</a></li>
+      <li><a href="index.html?filtro=unisex">Unisex</a></li>
+      <li class="marcas-hover">
+        <a href="#">Marcas</a>
+        <div class="menu-marcas">
+          <div class="grid-marcas">
+            <img src="img/nike.jpg" alt="Nike" data-marca="nike">
+            <img src="img/Adidas.png" alt="Adidas" data-marca="adidas">
+            <img src="img/conv.jpg" alt="Converse" data-marca="converse">
+            <img src="img/balance.png" alt="New Balance" data-marca="new balance">
+            <img src="img/jordan.jpg" alt="Jordan" data-marca="jordan">
+            <img src="img/puma.png" alt="Puma" data-marca="puma">
+            <img src="img/crocs.png" alt="Crocs" data-marca="crocs">
+            <img src="img/asics.png" alt="Asics" data-marca="asics">
+            <img src="img/vans.png" alt="Vans" data-marca="vans">
+            <img src="img/salomin.jpg" alt="Salomon" data-marca="salomon">
+            <img src="img/reebok.png" alt="Reebok" data-marca="reebok">
+            <img src="img/logo-lacoste.png" alt="Lacoste" data-marca="lacoste">
+            <img src="img/hoka.png" alt="Hoka" data-marca="hoka one one">
+            <img src="img/logo-on.png" alt="On" data-marca="on">
+            <img src="img/logo-timberland.png" alt="Timberland" data-marca="timberland">
+          </div>
+        </div>
+      </li>
+      <li><a href="index.html">Todo</a></li>
+    </ul>
+  </nav>
+  <div class="navbar-icons">
+    <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
+    <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
+    <a href="login.html"><i>👤</i></a>
+    <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
+  </div>
+</header>
+
+
+  <div class="producto-container">
+    
+    <!-- Imagen de la zapatilla -->
+    <div class="producto-imagen">
+      <img id="img-zapa" src="" alt="Zapatilla" />
+    </div>
+
+    <!-- Info del producto -->
+    <div class="producto-info">
+      <h2 id="nombre-zapa">Nombre</h2>
+      <p id="marca-zapa">Marca:</p>
+      <p id="color-zapa">Color:</p>
+      <p id="precio-zapa">Precio:</p>
+
+      <label for="tallas-grid">Talla:</label>
+      <div class="tallas-grid" id="tallas-grid"></div>
+      <input type="hidden" id="talla-seleccionada" />
+
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" value="1" min="1" />
+
+      <button id="btn-cesta">Añadir a la cesta</button>
+    </div>
+  </div>
+<!-- MODAL CARRITO DESLIZANTE -->
+<div id="carrito-modal" class="carrito-lateral oculto">
+  <div class="carrito-contenido">
+    <button onclick="cerrarCarrito()" class="cerrar-carrito">X</button>
+    <h3>Tu cesta</h3>
+    <ul id="lista-carrito"></ul>
+    <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
+    <button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
+    <button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
+  </div>
+</div>
+
+  
+
+  <script src="JavaScript/producto.js"></script>
+</body>
+</html>

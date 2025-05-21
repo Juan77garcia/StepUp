@@ -6,21 +6,48 @@
   <title>StepUp</title>
   <link rel="stylesheet" href="estilos/style.css" />
   <script defer src="JavaScript/script.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
   <header class="navbar">
+
     <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
     <nav class="navbar-links">
-      <a href="#" onclick="mostrarInicio()">Inicio</a>
-      <a href="#" onclick="filtrarPorGenero('men')">Hombres</a>
-      <a href="#" onclick="filtrarPorGenero('women')">Mujeres</a>
-      <a href="#" onclick="filtrarPorGenero('child')">Niño</a>
-      <a href="#" onclick="filtrarPorGenero('unisex')">Unisex</a>
-      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Nuevas</a>
-      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Ofertas</a>
-      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Marcas</a>
-      <a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a>
-    </nav>
+  <ul class="navbar-menu">
+    <li><a href="#" onclick="mostrarInicio()">Inicio</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('men')">Hombres</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('women')">Mujeres</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('child')">Niño</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('unisex')">Unisex</a></li>
+
+    <li class="menu-item marcas-hover">
+      <a href="#">Marcas</a>
+      <div class="menu-marcas">
+        <div class="grid-marcas">
+          <img src="img/nike.jpg" alt="Nike" data-marca="nike" />
+          <img src="img/Adidas.png" alt="Adidas" data-marca="adidas" />
+          <img src="img/conv.jpg" alt="Converse" data-marca="converse" />
+          <img src="img/balance.png" alt="New Balance" data-marca="new balance" />
+          <img src="img/jordan.jpg" alt="Jordan" data-marca="jordan" />
+          <img src="img/puma.png" alt="Puma" data-marca="puma" />
+          <img src="img/crocs.png" alt="Crocs" data-marca="crocs" />
+          <img src="img/asics.png" alt="Asics" data-marca="asics" />
+          <img src="img/vans.png" alt="Vans" data-marca="vans" />
+          <img src="img/alexander.png " alt="ALEXANDER MCQUEEN" data-marca="ALEXANDER MCQUEEN" />
+          <img src="img/salomin.jpg" alt="Salomon" data-marca="salomon" />
+          <img src="img/reebok.png" alt="Reebok" data-marca="reebok" />
+          <img src="img/hoka.png" alt="Hoka" data-marca="hoka one one" />
+          <img src="img/off.jpg" alt="OFF-WHITE" data-marca="OFF-WHITE" />
+          <img src="img/dior.jpg" alt="DIOR" data-marca="DIOR" />
+        </div>
+      </div>
+    </li>
+
+    <li><a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a></li>
+  </ul>
+</nav>
+
     <div class="navbar-icons">
       <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
       <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
@@ -31,7 +58,7 @@
 
   <div class="layout" id="layout">
     <aside id="filtros" class="sidebar oculto-en-inicio">
-      <h3>Filtrar</h3>
+      <h3>Filtro StepUp</h3>
       <select id="marcaFiltro">
         <option value="">Marcas</option>
         <option value="nike">Nike</option>
@@ -43,25 +70,62 @@
         <option value="vans">Vans</option>
         <option value="asics">Asics</option>
         <option value="gucci">Gucci</option>
+        <option value="salomon">salomon</option>
+        <option value="crocs">crocs</option>
+        <option value="VERSACE">VERSACE</option>
+        <option value="hoka one one">hoka one one</option>
+        <option value="balenciaga">balenciaga</option>ALEXANDER MCQUEEN
+        <option value="alexander mcqueen">ALEXANDER MCQUEEN</option>
+        <option value="dior">DIOR</option>
+        <option value="off-white">OFF-WHITE</option>
+        <option value="GOLDEN GOOSE">GOLDEN GOOSE</option>
       </select>
+       <input type="number" id="precioMax" placeholder="€ máximo" />
       <input type="number" id="precioMin" placeholder="€ mínimo" />
-      <input type="number" id="precioMax" placeholder="€ máximo" />
       <button onclick="aplicarFiltros()">Aplicar filtros</button>
     </aside>
 
     <div class="contenido">
       <div id="hero-container" class="hero-banner">
-        <img id="banner-img" src="img/prin7.png" alt="Banner de inicio" />
+        <img id="banner-img" src="img/prin8.png" alt="Banner de inicio" />
       </div>
       <main>
         <div id="resultado" class="grid-contenedor"></div>
       </main>
     </div>
-  </div><br><br>
-  <section id="zapas-caras" class="seccion-caras oculto-en-inicio">
-  <h2>Zapatillas más caras</h2>
-  <div id="contenedor-caras" class="grid-contenedor"></div>
+  </div><br><br><br><br><br>
+
+  <section class="inicio-vitrina">
+    
+  <div class="vitrina-item" data-marca="new balance">
+    <img src="img/zapanew.png" alt="New Balance 9060">
+    <p>New Balance 9060</p>
+  </div>
+  <div class="vitrina-item" data-marca="hoka one one">
+    <img src="img/zapahoka.png" alt="Hoka One One">
+    <p>Hoka One One</p>
+  </div>
+  <div class="vitrina-item" data-marca="nike">
+    <img src="img/zapanike.png" alt="Nike Air Max">
+    <p>Nike Air Max</p>
+  </div>
+  <div class="vitrina-item" data-marca="crocs">
+    <img src="img/zapacro.png" alt="Crocs Classic">
+    <p>Crocs Classic</p>
+  </div>
+  <div class="vitrina-item" data-marca="new balance">
+    <img src="img/zapadior.png" alt="New Balance 530">
+    <p>New Balance 530</p>
+  </div>
+  <div class="vitrina-item" data-marca="adidas">
+    <img src="img/zapaoff.png" alt="Adidas Handball Spezial">
+    <p>Adidas Handball Spezial</p>
+  </div>
 </section>
+
+
+
+  
 
 
   <!-- MODAL CARRITO DESLIZANTE -->
@@ -80,6 +144,14 @@
 <button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
   </div>
 </div>
+<!-- Modal para zapatilla ampliada -->
+<div id="modal-zapatilla" class="modal-zapa">
+  <span id="cerrar-modal-zapa" class="cerrar-modal">×</span>
+  <div class="modal-contenido">
+    <img id="img-modal-zapa" src="" alt="Zapatilla en grande">
+  </div>
+</div>
+
 
 
 
@@ -107,3 +179,4 @@
   </footer>
 </body>
 </html>
+
