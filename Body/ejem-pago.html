@@ -1,35 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda de Zapatillas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    header {
+      background: black;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    .hero {
+      background-image: url('zapatillas-banner.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+    .producto {
+      border: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+    }
+    .producto img {
+      max-width: 100%;
+      height: auto;
+    }
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-    <form id="payment-form">
-  <div id="card-element"></div>
-  <button type="submit">Pagar</button>
-</form>
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-  const stripe = Stripe('pk_test_TU_CLAVE_PUBLICA');
-  const elements = stripe.elements();
-  const card = elements.create('card');
-  card.mount('#card-element');
 
-  const form = document.getElementById('payment-form');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const { paymentMethod } = await stripe.createPaymentMethod('card', card);
-    const response = await fetch('/pagar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ paymentMethodId: paymentMethod.id })
-    });
-    const result = await response.json();
-    alert(result.message);
-  });
-</script>
+<header>
+  <h1>Mi Tienda de Zapatillas</h1>
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Catálogo</a>
+    <a href="#">Ofertas</a>
+    <a href="#">Contacto</a>
+  </nav>
+</header>
+
+<section class="hero">
+  ¡Lleva tu estilo al siguiente nivel!
+</section>
+
+<section class="productos">
+  <div class="producto">
+    <img src="zapatilla1.jpg" alt="Zapatilla 1">
+    <h3>Zapatilla Running</h3>
+    <p>$59.99</p>
+  </div>
+  <div class="producto">
+    <img src="zapatilla2.jpg" alt="Zapatilla 2">
+    <h3>Zapatilla Urbana</h3>
+    <p>$74.99</p>
+  </div>
+  <!-- Añade más productos aquí -->
+</section>
+
+<footer>
+  &copy; 2025 Mi Tienda de Zapatillas - Todos los derechos reservados
+</footer>
 
 </body>
 </html>

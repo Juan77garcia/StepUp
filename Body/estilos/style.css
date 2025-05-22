@@ -476,75 +476,102 @@ body {
     }
 
 
-  .footer {
-  background-color: #111;
-  color: #f1f1f1;
-  padding: 40px 20px 10px;
+.footer {
+  background-color: #0e0e0e;
+  color: #ddd;
+  padding: 4rem 2rem 2rem;
   font-family: 'Segoe UI', sans-serif;
- 
 }
 
-.footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
+.footer-wrapper {
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 3rem;
+  border-bottom: 1px solid #222;
+  padding-bottom: 2rem;
 }
 
-.footer-logo h2 {
-  font-size: 28px;
-  margin-bottom: 10px;
+.footer-column h2 {
+  font-size: 2rem;
+  color: white;
+}
+
+.footer-column h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
   color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.footer-logo p {
-  font-size: 14px;
-  color: #bbb;
+.footer-column ul {
+  list-style: none;
+  padding: 0;
 }
 
-.footer-links a {
-  display: block;
-  margin: 6px 0;
-  color: #ccc;
+.footer-column ul li {
+  margin-bottom: 0.7rem;
+}
+
+.footer-column ul li a {
+  color: #aaa;
   text-decoration: none;
   transition: color 0.3s;
 }
 
-.footer-links a:hover {
+.footer-column ul li a:hover {
   color: #fff;
 }
 
-.footer-social a {
-  margin-right: 15px;
-  font-size: 18px;
-  color: #ccc;
+.social-icons a {
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  color: #aaa;
   transition: color 0.3s;
 }
 
-.footer-social a:hover {
-  color: #1db954; /* Verde estilo "spotify" moderno */
+.social-icons a:hover {
+  color: white;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
+  background: transparent;
+  color: white;
+  outline: none;
+  border-radius: 3px;
+}
+
+.subscribe-form button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+
+.subscribe-form button:hover {
+  background: #ddd;
 }
 
 .footer-bottom {
   text-align: center;
-  margin-top: 30px;
-  font-size: 13px;
+  margin-top: 2rem;
   color: #666;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-links, .footer-social {
-    margin-top: 20px;
-  }
+  font-size: 0.9rem;
 }
 
 
@@ -555,34 +582,104 @@ body {
 
 
 
-.inicio-vitrina {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  padding: 40px 20px;
-}
-
-.vitrina-item {
+.destacados-limpios {
   text-align: center;
-  cursor: pointer;
-  max-width: 160px;
-  transition: transform 0.2s ease;
+  padding: 2rem 1rem;
 }
 
-.vitrina-item img {
-  width: 100%;
+.destacados-limpios h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.fila-zapatillas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 200px;
+}
+
+.zapa-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 120px;
+}
+
+.zapa-item img {
+  width: 250px;
   height: auto;
   object-fit: contain;
 }
 
-.vitrina-item p {
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #111;
+.zapa-item p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
 }
 
-.vitrina-item:hover {
-  transform: scale(1.05);
+
+
+
+
+
+
+
+
+.lanzamiento {
+  text-align: center;
+  padding: 6rem 1rem;
+  background: #f9f9f9;
 }
+
+.lanzamiento h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.coleccion-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14rem; /* Espacio controlado entre zapatillas */
+}
+
+.item-zapa {
+  max-width: 200px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease;
+  position: relative;
+}
+
+.item-zapa img {
+  width: 200%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.item-zapa p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Animación al hacer scroll */
+.item-zapa.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

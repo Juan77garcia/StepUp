@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="estilos/style.css" />
   <script defer src="JavaScript/script.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
 </head>
 <body>
@@ -79,6 +81,7 @@
         <option value="dior">DIOR</option>
         <option value="off-white">OFF-WHITE</option>
         <option value="GOLDEN GOOSE">GOLDEN GOOSE</option>
+        <option value="AIR JORDAN">AIR JORDAN</option>
       </select>
        <input type="number" id="precioMax" placeholder="€ máximo" />
       <input type="number" id="precioMin" placeholder="€ mínimo" />
@@ -95,33 +98,65 @@
     </div>
   </div><br><br><br><br><br>
 
-  <section class="inicio-vitrina">
-    
-  <div class="vitrina-item" data-marca="new balance">
-    <img src="img/zapanew.png" alt="New Balance 9060">
-    <p>New Balance 9060</p>
-  </div>
-  <div class="vitrina-item" data-marca="hoka one one">
-    <img src="img/zapahoka.png" alt="Hoka One One">
-    <p>Hoka One One</p>
-  </div>
-  <div class="vitrina-item" data-marca="nike">
-    <img src="img/zapanike.png" alt="Nike Air Max">
-    <p>Nike Air Max</p>
-  </div>
-  <div class="vitrina-item" data-marca="crocs">
-    <img src="img/zapacro.png" alt="Crocs Classic">
-    <p>Crocs Classic</p>
-  </div>
-  <div class="vitrina-item" data-marca="new balance">
-    <img src="img/zapadior.png" alt="New Balance 530">
-    <p>New Balance 530</p>
-  </div>
-  <div class="vitrina-item" data-marca="adidas">
-    <img src="img/zapaoff.png" alt="Adidas Handball Spezial">
-    <p>Adidas Handball Spezial</p>
+
+
+<section id="destacados-inicio" class="destacados-limpios">
+  <h2>LAS MEJORES MARCAS</h2>
+  <div class="fila-zapatillas">
+    <div class="zapa-item" onclick="mostrarPorMarca('gucci')">
+      <img src="img/zapagucciii.png" alt="GUCCI">
+      <p>GUCCI</p>
+    </div>
+    <div class="zapa-item" onclick="mostrarPorMarca('dior')">
+      <img src="img/zapadiorr.png" alt="DIOR">
+      <p>DIOR</p>
+    </div>
+    <div class="zapa-item" onclick="mostrarPorMarca('golden goose')">
+      <img src="img/zapagolden.png" alt="GOLDEN GOOSE">
+      <p>GOLDEN GOOSE</p>
+    </div>
+    <div class="zapa-item" onclick="mostrarPorMarca('off-white')">
+      <img src="img/zapaoffw.png" alt="OFF-WHITE">
+      <p>OFF-WHITE</p>
+    </div>
+    <div class="zapa-item" onclick="mostrarPorMarca('balenciaga')">
+      <img src="img/zapabanc.png" alt="BALENCIAGA">
+      <p>BALENCIAGA</p>
+    </div>
+     <div class="zapa-item" onclick="mostrarPorMarca('AIR JORDAN')">
+      <img src="img/jordan.png" alt="JORDAN">
+      <p>JORDAN</p>
+    </div>
   </div>
 </section>
+
+
+<section class="lanzamiento" id="lanzamientos-2025">
+  <h2>✨ Próximos Lanzamientos 2025</h2>
+  <div class="coleccion-grid">
+    <div class="item-zapa">
+      <img src="img/zapadiorexclu.png" alt="Air Jordan 1 High x Dior">
+      <p>Air Jordan 1 High x Dior</p>
+    </div>
+    <div class="item-zapa">
+      <img src="img/zapadunk.png" alt="Dunk Low Pro SB 'Freddy Krueger'">
+      <p>Dunk Low Pro SB 'Freddy Krueger'</p>
+    </div>
+    <div class="item-zapa">
+      <img src="img/airforceexcl.png" alt="Air Force 1 de Nike x Louis Vuitton">
+      <p>Air Force 1 de Nike x Louis Vuitton</p>
+    </div>
+    <div class="item-zapa">
+      <img src="img/mochajorda.png" alt="Air Jordan 1 High Dark Mocha">
+      <p>Air Jordan 1 High Dark Mocha</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+
 
 
 
@@ -155,28 +190,49 @@
 
 
 
+
   <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-logo">
-        <h2>StepUp</h2>
-        <p>Sube tu estilo. Cada paso cuenta.</p>
-      </div>
-      <div class="footer-links">
-        <a href="#">Inicio</a>
-        <a href="#">Colección</a>
-        <a href="#">Ofertas</a>
-        <a href="#">Contacto</a>
-      </div>
-      <div class="footer-social">
+  <div class="footer-wrapper">
+    <div class="footer-column brand">
+      <h2>StepUp</h2>
+      <p>Sube tu estilo. Cada paso cuenta.</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Explora</h3>
+      <ul>
+        <li><a href="#" onclick="mostrarInicio()">Inicio</a></li>
+        <li><a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Catálogo</a></li>
+        <li><a href="#">Ofertas</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Redes</h3>
+      <div class="social-icons">
         <a href="#"><i class="fab fa-instagram"></i></a>
         <a href="#"><i class="fab fa-tiktok"></i></a>
         <a href="#"><i class="fab fa-twitter"></i></a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 StepUp. Todos los derechos reservados.</p>
+
+    <div class="footer-column">
+      <h3>Suscríbete</h3>
+      <p>Recibe lanzamientos y ofertas exclusivas.</p>
+      <form class="subscribe-form" onsubmit="event.preventDefault()">
+        <input type="email" placeholder="Tu correo" />
+        <button type="submit">→</button>
+      </form>
     </div>
-  </footer>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 StepUp. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
 </body>
 </html>
 

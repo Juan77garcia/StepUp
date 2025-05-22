@@ -5,7 +5,7 @@ const MARCAS_VALIDAS = [
   "nike", "adidas", "jordan", "new balance", "converse",
   "puma", "reebok", "vans", "asics", "hoka one one"
   , "crocs", "salomon", "balenciaga", "gucci",
-  "alexander mcqueen", "dior", "off-white","golden goose"
+  "alexander mcqueen", "dior", "off-white","golden goose,AIR JORDAN"
 ];
 
 let zapatillasCargadas = []; // Se guarda el resultado de la última búsqueda para usar en favoritos o carrito
@@ -30,8 +30,18 @@ input.addEventListener("keyup", () => {
 function mostrarInicio() {
   document.getElementById("hero-container").classList.remove("hidden");
   document.getElementById("filtros").classList.add("oculto-en-inicio");
+
   document.getElementById("resultado").innerHTML = "";
+  document.getElementById("resultado").style.display = "none";
+  document.getElementById("lanzamientos-2025").style.display = "block";
+
+
+  const destacados = document.getElementById("destacados-inicio"); 
+
+
+  if (destacados) destacados.style.display = "block";
 }
+
 
 function ocultarHero() {
   document.getElementById("hero-container").classList.add("hidden");
@@ -52,16 +62,47 @@ function filtrarPorGenero(genero) {
     { nameField: "gender", value: genero },
     ...MARCAS_VALIDAS.map(m => ({ nameField: "brand", value: m }))
   ]);
+  document.getElementById("destacados-inicio").style.display = "none";
+  document.getElementById("resultado").style.display = "grid";
+  document.getElementById("lanzamientos-2025").style.display = "none";
+
+
 }
 
 function buscarZapatillasSoloMarcasValidas() {
   ocultarHero();
+  mostrarFiltros();
+  document.getElementById("destacados-inicio").style.display = "none";
+  document.getElementById("resultado").style.display = "grid";
+  document.getElementById("lanzamientos-2025").style.display = "none";
+
+
   const criterios = MARCAS_VALIDAS.map(marca => ({
     nameField: "brand",
     value: marca
   }));
-  buscarZapatillas(criterios);
+
+  fetch("https://stepup-proyect.onrender.com/api", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      limit: "100", // Puedes ajustar si hay más
+      criteria: criterios
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.results || data.results.length === 0) {
+        document.getElementById("resultado").textContent = "No se encontraron zapatillas.";
+        return;
+      }
+      mostrarZapatillas(data.results);
+    })
+    .catch(() => {
+      document.getElementById("resultado").textContent = "Error al cargar los datos.";
+    });
 }
+
 
 function aplicarFiltros() {
   ocultarHero();
@@ -330,6 +371,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+
+
 function ampliarZapatilla(url) {
   const modal = document.getElementById("modal-zapatilla");
   const modalImg = document.getElementById("img-modal-zapa");
@@ -349,6 +393,36 @@ window.addEventListener("click", (e) => {
 });
 
 //----destacados----//
+
+
+
+function mostrarPorMarca(marca) {
+  ocultarHero();
+  mostrarFiltros();
+  document.getElementById("destacados-inicio").style.display = "none";
+  document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("resultado").style.display = "grid";
+
+  buscarZapatillas([{ nameField: "brand", value: marca }]);
+}
+
+
+
+
+
+function animarLanzamiento() {
+  const items = document.querySelectorAll('.item-zapa');
+  items.forEach(item => {
+    const rect = item.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      item.classList.add('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', animarLanzamiento);
+
+
 
 
 
