@@ -428,3 +428,44 @@ window.addEventListener('scroll', animarLanzamiento);
 
 
 
+
+
+
+
+
+const imagenesSlider = [
+  {
+    img: "img/publli2.png",
+    marca: "crocs"
+  },
+  {
+    img: "img/publi3.png",
+    marca: "puma"
+  },
+  {
+    img: "img/publi1.png",
+    marca: "off-white"
+  }
+];
+
+let sliderIndex = 0;
+
+function cambiarBanner() {
+  sliderIndex = (sliderIndex + 1) % imagenesSlider.length;
+  const img = document.getElementById("slider-img");
+  img.src = imagenesSlider[sliderIndex].img;
+}
+
+function comprarAhora() {
+  const marca = imagenesSlider[sliderIndex].marca;
+
+  ocultarHero();
+  mostrarFiltros();
+  document.getElementById("resultado").style.display = "grid";
+  document.getElementById("destacados-inicio").style.display = "none";
+  document.getElementById("lanzamientos-2025").style.display = "none";
+
+  buscarZapatillas([{ nameField: "brand", value: marca }]);
+}
+
+

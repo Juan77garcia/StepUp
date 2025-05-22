@@ -74,6 +74,11 @@ body {
 .oculto-en-inicio {
   display: none !important;
 }
+
+
+
+
+
 .contenido {
   flex: 1;
 }
@@ -83,7 +88,17 @@ body {
 }
 .hero-banner img {
   width: 100%;
+  height: auto;
+  border-radius: 20px;
+  border: 2px solid #eaeaea; /* como si tuviera un marco blanco suave */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
 }
+
+
+.hero-banner img:hover {
+  transform: scale(1.005); /* mini zoom */
+}
+
 .hero-banner.hidden {
   display: none !important;
 }
@@ -94,6 +109,15 @@ body {
 #banner-img {
   transition: opacity 1s ease-in-out;
 }
+
+
+
+
+
+
+
+
+
 .grid-contenedor {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -682,4 +706,111 @@ body {
 
 
 
+
+
+
+.slider-banner {
+  width: 100%;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.slider-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.4s ease;
+  border-radius: 12px;
+}
+
+.btn-next {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.btn-extra {
+  position: absolute;
+  bottom: 1rem;
+  right: 3rem;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-extra:hover {
+  background: #f2f2f2;
+}
+
+
+
+
+
+
+
+.comprar-genero {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.comprar-genero h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.genero-opciones {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.opcion-genero {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.opcion-genero img {
+  width: 220px;         /* antes 150px */
+  height: 220px;        /* antes 150px */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid transparent;
+  transition: transform 0.3s, border 0.3s;
+}
+
+.opcion-genero p {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.opcion-genero:hover img {
+  transform: scale(1.05);
+  border: 3px solid #111;
+}
 
