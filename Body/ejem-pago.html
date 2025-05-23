@@ -1,94 +1,97 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda de Zapatillas</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-    }
-    header {
-      background: black;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-    }
-    .hero {
-      background-image: url('zapatillas-banner.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 4px #000;
-    }
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-    .producto {
-      border: 1px solid #ddd;
-      padding: 20px;
-      text-align: center;
-    }
-    .producto img {
-      max-width: 100%;
-      height: auto;
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+  <title>Document</title>
 </head>
 <body>
+  <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
 
-<header>
-  <h1>Mi Tienda de Zapatillas</h1>
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Catálogo</a>
-    <a href="#">Ofertas</a>
-    <a href="#">Contacto</a>
-  </nav>
-</header>
+<!-- Modal carrito -->
+<div id="carrito-modal" style="display:none; position:fixed; top:0; right:0; background:#fff; width:300px; height:100%; box-shadow:-2px 0 10px rgba(0,0,0,0.2); padding:20px;">
+  <button onclick="cerrarCarrito()">X</button>
+  <h3>Tu cesta</h3>
+  <ul id="lista-carrito"></ul>
+  <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
+</div>
 
-<section class="hero">
-  ¡Lleva tu estilo al siguiente nivel!
-</section>
+<!-- Botón de prueba -->
+<button onclick="añadirProductoDemo()">Añadir zapatilla</button>
 
-<section class="productos">
-  <div class="producto">
-    <img src="zapatilla1.jpg" alt="Zapatilla 1">
-    <h3>Zapatilla Running</h3>
-    <p>$59.99</p>
-  </div>
-  <div class="producto">
-    <img src="zapatilla2.jpg" alt="Zapatilla 2">
-    <h3>Zapatilla Urbana</h3>
-    <p>$74.99</p>
-  </div>
-  <!-- Añade más productos aquí -->
-</section>
 
-<footer>
-  &copy; 2025 Mi Tienda de Zapatillas - Todos los derechos reservados
-</footer>
+
+
+
+
+
+
+
+
+
+<script>
+function añadirProductoDemo() {
+  const producto = {
+    name: "Nike Air Force 1",
+    retailPrice: 120
+  };
+  añadirAlCarrito(producto);
+}
+
+function añadirAlCarrito(zapatilla) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  const index = carrito.findIndex(item => item.name === zapatilla.name);
+
+  if (index !== -1) {
+    carrito[index].cantidad += 1;
+  } else {
+    zapatilla.cantidad = 1;
+    carrito.push(zapatilla);
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarContadorCarrito();
+}
+
+function mostrarCarrito() {
+  const modal = document.getElementById("carrito-modal");
+  const lista = document.getElementById("lista-carrito");
+  const total = document.getElementById("total-carrito");
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  lista.innerHTML = "";
+  let suma = 0;
+
+  if (carrito.length === 0) {
+    lista.innerHTML = "<li>La cesta está vacía</li>";
+    total.textContent = "0";
+  } else {
+    carrito.forEach(zapa => {
+      const subtotal = zapa.retailPrice * zapa.cantidad;
+      const item = document.createElement("li");
+      item.textContent = `${zapa.name} x ${zapa.cantidad} = €${subtotal.toFixed(2)}`;
+      lista.appendChild(item);
+      suma += subtotal;
+    });
+    total.textContent = suma.toFixed(2);
+  }
+
+  modal.style.display = "block";
+}
+
+function cerrarCarrito() {
+  document.getElementById("carrito-modal").style.display = "none";
+}
+
+function actualizarContadorCarrito() {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  document.getElementById("contador-carrito").textContent = total;
+}
+
+document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
+</script>
 
 </body>
 </html>

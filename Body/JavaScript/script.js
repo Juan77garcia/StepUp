@@ -28,19 +28,26 @@ input.addEventListener("keyup", () => {
 // =========================
 
 function mostrarInicio() {
+  // Mostrar banner principal
   document.getElementById("hero-container").classList.remove("hidden");
-  document.getElementById("filtros").classList.add("oculto-en-inicio");
 
+  // Ocultar filtros y resultados
+  document.getElementById("filtros").classList.add("oculto-en-inicio");
   document.getElementById("resultado").innerHTML = "";
   document.getElementById("resultado").style.display = "none";
-  document.getElementById("lanzamientos-2025").style.display = "block";
 
-
-  const destacados = document.getElementById("destacados-inicio"); 
-
+  // Mostrar otras secciones del inicio
+  const destacados = document.getElementById("destacados-inicio");
+  const lanzamientos = document.getElementById("lanzamientos-2025");
+  const generos = document.querySelector(".comprar-genero"); // si tienes esta sección
+  const slider = document.querySelector(".slider-banner");
 
   if (destacados) destacados.style.display = "block";
+  if (lanzamientos) lanzamientos.style.display = "block";
+  if (generos) generos.style.display = "block";
+  if (slider) slider.style.display = "block";
 }
+
 
 
 function ocultarHero() {
@@ -65,6 +72,9 @@ function filtrarPorGenero(genero) {
   document.getElementById("destacados-inicio").style.display = "none";
   document.getElementById("resultado").style.display = "grid";
   document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
+
 
 
 }
@@ -75,6 +85,9 @@ function buscarZapatillasSoloMarcasValidas() {
   document.getElementById("destacados-inicio").style.display = "none";
   document.getElementById("resultado").style.display = "grid";
   document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
+
 
 
   const criterios = MARCAS_VALIDAS.map(marca => ({
@@ -292,9 +305,6 @@ function mostrarCarrito() {
   modal.classList.add("visible");
 }
 
-function cerrarCarrito() {
-  document.getElementById("carrito-modal").classList.remove("visible");
-}
 
 function eliminarDelCarrito(index) {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -304,26 +314,23 @@ function eliminarDelCarrito(index) {
   actualizarContadorCarrito();
 }
 
-function añadirAlCarrito(zapatilla) {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  carrito.push(zapatilla);
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  actualizarContadorCarrito();
-  mostrarCarrito(); // Mostrar de inmediato
+function cerrarCarrito() {
+  document.getElementById("carrito-modal").classList.remove("visible");
 }
 
 function actualizarContadorCarrito() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
   const contador = document.getElementById("contador-carrito");
-  if (contador) {
-    contador.textContent = carrito.length;
-  }
+  if (contador) contador.textContent = total;
 }
+
+document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
 
 function irACesta() {
   alert("Aquí irías a la página de pago o resumen de compra. 🚀");
-  //window.location.href = "cesta.html"; // si tienes página
 }
+
 
 // =========================
 // Banner rotativo de inicio
@@ -467,5 +474,3 @@ function comprarAhora() {
 
   buscarZapatillas([{ nameField: "brand", value: marca }]);
 }
-
-
