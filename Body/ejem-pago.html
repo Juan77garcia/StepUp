@@ -6,92 +6,16 @@
   <title>Document</title>
 </head>
 <body>
-  <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
+  <a href="#introduccion">Introducción</a><br>
+<a href="#mostrarbasedatos">show databases</a><br>
+<a href="#creaciontabla">Creación de una tabla y mostrar sus
+campos</a><br>
+<a href="#cargarregistros">Carga de registros a una tabla y su
+recuperación</a><br>
+Luego la definición de las anclas son:
 
-<!-- Modal carrito -->
-<div id="carrito-modal" style="display:none; position:fixed; top:0; right:0; background:#fff; width:300px; height:100%; box-shadow:-2px 0 10px rgba(0,0,0,0.2); padding:20px;">
-  <button onclick="cerrarCarrito()">X</button>
-  <h3>Tu cesta</h3>
-  <ul id="lista-carrito"></ul>
-  <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
-</div>
-
-<!-- Botón de prueba -->
-<button onclick="añadirProductoDemo()">Añadir zapatilla</button>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-function añadirProductoDemo() {
-  const producto = {
-    name: "Nike Air Force 1",
-    retailPrice: 120
-  };
-  añadirAlCarrito(producto);
-}
-
-function añadirAlCarrito(zapatilla) {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  const index = carrito.findIndex(item => item.name === zapatilla.name);
-
-  if (index !== -1) {
-    carrito[index].cantidad += 1;
-  } else {
-    zapatilla.cantidad = 1;
-    carrito.push(zapatilla);
-  }
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  actualizarContadorCarrito();
-}
-
-function mostrarCarrito() {
-  const modal = document.getElementById("carrito-modal");
-  const lista = document.getElementById("lista-carrito");
-  const total = document.getElementById("total-carrito");
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  lista.innerHTML = "";
-  let suma = 0;
-
-  if (carrito.length === 0) {
-    lista.innerHTML = "<li>La cesta está vacía</li>";
-    total.textContent = "0";
-  } else {
-    carrito.forEach(zapa => {
-      const subtotal = zapa.retailPrice * zapa.cantidad;
-      const item = document.createElement("li");
-      item.textContent = `${zapa.name} x ${zapa.cantidad} = €${subtotal.toFixed(2)}`;
-      lista.appendChild(item);
-      suma += subtotal;
-    });
-    total.textContent = suma.toFixed(2);
-  }
-
-  modal.style.display = "block";
-}
-
-function cerrarCarrito() {
-  document.getElementById("carrito-modal").style.display = "none";
-}
-
-function actualizarContadorCarrito() {
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-  document.getElementById("contador-carrito").textContent = total;
-}
-
-document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
-</script>
+<a name="introduccion"></a>
+<h2>Introducción</h2>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ const MARCAS_VALIDAS = [
   "nike", "adidas", "jordan", "new balance", "converse",
   "puma", "reebok", "vans", "asics", "hoka one one"
   , "crocs", "salomon", "balenciaga", "gucci",
-  "alexander mcqueen", "dior", "off-white","golden goose,AIR JORDAN"
+  "alexander mcqueen", "dior", "off-white","golden goose,air jordan"
 ];
 
 let zapatillasCargadas = []; // Se guarda el resultado de la última búsqueda para usar en favoritos o carrito
@@ -19,6 +19,11 @@ input.addEventListener("keyup", () => {
   if (marca && MARCAS_VALIDAS.includes(marca)) {
     ocultarHero();
     mostrarFiltros();
+    document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
+  document.getElementById("destacados-inicio").style.display = "none";
+    document.getElementById("resultado").style.display = "grid";
     buscarZapatillas([{ nameField: "brand", value: marca }]);
   }
 });
@@ -154,22 +159,25 @@ function buscarZapatillas(criterios) {
   const resultado = document.getElementById("resultado");
   resultado.innerHTML = "";
 
-  fetch("https://stepup-proyect.onrender.com/api", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ limit: "98", criteria: criterios })
+ fetch("https://stepup-proyect.onrender.com/api", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ limit: "98", criteria: criterios })
+})
+  .then(res => res.json())
+  .then(data => {
+    console.log("Resultados recibidos:", data); // ✅ Aquí sí puedes usar `data`
+
+    if (!data.results || data.results.length === 0) {
+      document.getElementById("resultado").textContent = "No se encontraron zapatillas.";
+      return;
+    }
+    mostrarZapatillas(data.results);
   })
-    .then(res => res.json())
-    .then(data => {
-      if (!data.results || data.results.length === 0) {
-        resultado.textContent = "No se encontraron zapatillas.";
-        return;
-      }
-      mostrarZapatillas(data.results);
-    })
-    .catch(() => {
-      resultado.textContent = "Error al cargar los datos.";
-    });
+  .catch(() => {
+    document.getElementById("resultado").textContent = "Error al cargar los datos.";
+  });
+
 }
 
 // =========================
@@ -180,6 +188,7 @@ function mostrarZapatillas(zapatillas) {
   const resultado = document.getElementById("resultado");
   resultado.innerHTML = "";
   zapatillasCargadas = zapatillas;
+ 
 
   zapatillas.forEach(z => {
     const img = z.image?.original || z.image?.small || z.image?.thumbnail;
@@ -247,6 +256,12 @@ function mostrarFavoritos() {
 
   ocultarHero();
   mostrarFiltros();
+  document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
+  document.getElementById("destacados-inicio").style.display = "none";
+
+  document.getElementById("resultado").style.display = "grid"; // ✅ Mostrar contenedor
 
   if (favoritos.length === 0) {
     document.getElementById("resultado").innerHTML = "<p>No tienes favoritos aún.</p>";
@@ -255,6 +270,7 @@ function mostrarFavoritos() {
 
   mostrarZapatillas(favoritos);
 }
+
 
 function esFavorito(zapatilla) {
   const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -371,6 +387,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (marca) {
         ocultarHero();
         mostrarFiltros();
+         document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
+  document.getElementById("destacados-inicio").style.display = "none"
+        document.getElementById("resultado").style.display = "grid"; 
         buscarZapatillas([{ nameField: "brand", value: marca }]);
       }
     });
@@ -469,8 +490,10 @@ function comprarAhora() {
   ocultarHero();
   mostrarFiltros();
   document.getElementById("resultado").style.display = "grid";
-  document.getElementById("destacados-inicio").style.display = "none";
   document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
+  document.getElementById("destacados-inicio").style.display = "none";
 
   buscarZapatillas([{ nameField: "brand", value: marca }]);
 }
