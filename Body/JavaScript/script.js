@@ -157,28 +157,28 @@ function aplicarFiltros() {
 
 function buscarZapatillas(criterios) {
   const resultado = document.getElementById("resultado");
-  resultado.innerHTML = "";
+  resultado.innerHTML = "Cargando zapatillas...";
 
- fetch("https://stepup-proyect.onrender.com/api", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ limit: "98", criteria: criterios })
-})
-  .then(res => res.json())
-  .then(data => {
-    console.log("Resultados recibidos:", data); // ✅ Aquí sí puedes usar `data`
-
-    if (!data.results || data.results.length === 0) {
-      document.getElementById("resultado").textContent = "No se encontraron zapatillas.";
-      return;
-    }
-    mostrarZapatillas(data.results);
+  fetch("https://stepup-proyect.onrender.com/api", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ limit: 98, criteria: criterios })
   })
-  .catch(() => {
-    document.getElementById("resultado").textContent = "Error al cargar los datos.";
-  });
-
+    .then(res => res.json())
+    .then(data => {
+      console.log("Zapatillas recibidas:", data);
+      if (!data.results || data.results.length === 0) {
+        resultado.innerHTML = "<p>No se encontraron zapatillas para esta marca.</p>";
+        return;
+      }
+      mostrarZapatillas(data.results); // 👈 Asegúrate de que esta funcione
+    })
+    .catch(err => {
+      resultado.innerHTML = "<p>Error al cargar productos.</p>";
+      console.error("Error:", err);
+    });
 }
+
 
 // =========================
 // Mostrar tarjetas de zapatillas
@@ -260,7 +260,6 @@ function mostrarFavoritos() {
   document.getElementById("publi").style.display = "none";
   document.getElementById("genders").style.display = "none";
   document.getElementById("destacados-inicio").style.display = "none";
-
   document.getElementById("resultado").style.display = "grid"; // ✅ Mostrar contenedor
 
   if (favoritos.length === 0) {
@@ -307,19 +306,23 @@ function mostrarCarrito() {
   } else {
     let suma = 0;
     carrito.forEach((zapa, i) => {
+      const precioTotal = zapa.retailPrice * zapa.cantidad;
+
       const item = document.createElement("li");
       item.innerHTML = `
-        ${zapa.name} - €${zapa.retailPrice || 0}
+        ${zapa.name} - €${precioTotal.toFixed(2)}
         <button onclick="eliminarDelCarrito(${i})">X</button>
       `;
       lista.appendChild(item);
-      suma += zapa.retailPrice || 0;
+
+      suma += precioTotal;
     });
     total.textContent = suma.toFixed(2);
   }
 
   modal.classList.add("visible");
 }
+
 
 
 function eliminarDelCarrito(index) {
@@ -344,8 +347,9 @@ function actualizarContadorCarrito() {
 document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
 
 function irACesta() {
-  alert("Aquí irías a la página de pago o resumen de compra. 🚀");
+  window.location.href = "checkout.html";
 }
+
 
 
 // =========================
@@ -373,8 +377,26 @@ if (banner) {
 
 document.addEventListener("DOMContentLoaded", () => {
   actualizarContadorCarrito();
-  mostrarInicio(); // Solo banner al inicio
+
+  const params = new URLSearchParams(window.location.search);
+  const genero = params.get("filtro");
+  const marca = params.get("marca");
+
+  if (genero) {
+    filtrarPorGenero(genero); // ✅ hombre, mujer, niño
+  } else if (marca) {
+    ocultarHero();
+    mostrarFiltros();
+    console.log("Marca detectada:", marca);
+    document.getElementById("resultado").style.display = "grid";
+    ocultarSeccionesInicio(); // oculta destacados/publi/etc.
+    buscarZapatillas([{ nameField: "brand", value: marca }]); // ✅ busca por marca
+  } else {
+    mostrarInicio(); // 🏠 carga home normal
+  }
 });
+
+
 
 
 // Activar clic en cada logo para filtrar por marca
@@ -388,9 +410,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ocultarHero();
         mostrarFiltros();
          document.getElementById("lanzamientos-2025").style.display = "none";
-  document.getElementById("publi").style.display = "none";
-  document.getElementById("genders").style.display = "none";
-  document.getElementById("destacados-inicio").style.display = "none"
+         document.getElementById("publi").style.display = "none";
+         document.getElementById("genders").style.display = "none";
+        document.getElementById("destacados-inicio").style.display = "none"
         document.getElementById("resultado").style.display = "grid"; 
         buscarZapatillas([{ nameField: "brand", value: marca }]);
       }
@@ -427,8 +449,10 @@ window.addEventListener("click", (e) => {
 function mostrarPorMarca(marca) {
   ocultarHero();
   mostrarFiltros();
+   document.getElementById("lanzamientos-2025").style.display = "none";
+  document.getElementById("publi").style.display = "none";
+  document.getElementById("genders").style.display = "none";
   document.getElementById("destacados-inicio").style.display = "none";
-  document.getElementById("lanzamientos-2025").style.display = "none";
   document.getElementById("resultado").style.display = "grid";
 
   buscarZapatillas([{ nameField: "brand", value: marca }]);

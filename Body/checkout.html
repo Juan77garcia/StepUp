@@ -2,22 +2,24 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detalle del Producto</title>
-  <link rel="stylesheet" href="estilos/producto.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cesta | StepUp</title>
+  <link rel="stylesheet" href="estilos/cesta.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<header class="navbar">
-  <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
-  <nav class="navbar-links">
-    <ul class="navbar-menu">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="index.html?filtro=men">Hombres</a></li>
-      <li><a href="index.html?filtro=women">Mujeres</a></li>
-      <li><a href="index.html?filtro=child">Niños</a></li>
-      <li><a href="index.html?filtro=unisex">Unisex</a></li>
-      <li class="menu-item marcas-hover">
+     <header class="navbar">
+
+    <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
+    <nav class="navbar-links">
+  <ul class="navbar-menu">
+    <li><a href="#" onclick="mostrarInicio()">Inicio</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('men')">Hombres</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('women')">Mujeres</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('child')">Niño</a></li>
+    <li><a href="#" onclick="filtrarPorGenero('unisex')">Unisex</a></li>
+
+    <li class="menu-item marcas-hover">
       <a href="#">Marcas</a>
       <div class="menu-marcas">
         <div class="grid-marcas">
@@ -39,58 +41,44 @@
         </div>
       </div>
     </li>
-      <li><a href="index.html">Todo</a></li>
-    </ul>
-  </nav>
-  <div class="navbar-icons">
-    <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
-    <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
-    <a href="login.html"><i>👤</i></a>
-    <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
-  </div>
-</header><br><br>
 
+    <li><a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a></li>
+  </ul>
+</nav>
 
-  <div class="producto-container">
-    
-    <!-- Imagen de la zapatilla -->
-    <div class="producto-imagen">
-      <img id="img-zapa" src="" alt="Zapatilla" />
+    <div class="navbar-icons">
+      <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
+      <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
+      <a href="login.html"><i>👤</i></a>
+      <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
     </div>
+  </header>
 
-    <!-- Info del producto -->
-    <div class="producto-info">
-      <h2 id="nombre-zapa">Nombre</h2>
-      <p id="marca-zapa">Marca:</p>
-      <p id="color-zapa">Color:</p>
-      <p id="precio-zapa">Precio:</p>
+  <main class="checkout-container">
+    <section class="cart-left">
+      <h1>Cesta StepUp</h1>
+      <div id="cart-items" class="cart-items"></div>
+    </section>
 
-      <label for="tallas-grid">Talla:</label>
-      <div class="tallas-grid" id="tallas-grid"></div>
-      <input type="hidden" id="talla-seleccionada" />
-
-      <label for="cantidad">Cantidad:</label>
-      <input type="number" id="cantidad" value="1" min="1" />
-
-      <button id="btn-cesta">Añadir a la cesta</button>
-    </div>
-  </div>
-<!-- MODAL CARRITO DESLIZANTE -->
-<div id="carrito-modal" class="carrito-lateral oculto">
-  <div class="carrito-contenido">
-    <button onclick="cerrarCarrito()" class="cerrar-carrito">X</button>
-    <h3>Tu cesta</h3>
-    <ul id="lista-carrito"></ul>
-    <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
-    <button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
-    <button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
-  </div>
-</div><br><br><br><br>
-
-  
+    <aside class="cart-summary">
+      <h2>Resumen</h2>
+      <div class="price-line">
+        <span>Subtotal</span>
+        <span>€<span id="subtotal">0</span></span>
+      </div>
+      <div class="price-line total">
+        <strong>Total</strong>
+        <strong>€<span id="total">0</span> EUR</strong>
+      </div>
+      <textarea placeholder="Nota del pedido (opcional)" rows="4"></textarea>
+      <button class="btn-final" onclick="finalizarCompra()">Finalizar compra</button>
+      <p class="pago-info">Impuestos incluidos. Los gastos de envío se calculan al finalizar.</p>
+    </aside>
+  </main><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
-<footer class="footer">
+
+   <footer class="footer">
   <div class="footer-wrapper">
     <div class="footer-column brand">
       <h2>StepUp</h2>
@@ -131,6 +119,6 @@
   </div>
 </footer>
 
-  <script src="JavaScript/producto.js"></script>
+  <script src="JavaScript/checkout.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ document.getElementById("marca-zapa").textContent = "Marca: " + (z.brand || "Des
 document.getElementById("color-zapa").textContent = "Color: " + (z.colorway || "N/A");
 document.getElementById("precio-zapa").textContent = "Precio: €" + (z.retailPrice || "N/A");
 
-// Generar tallas
+// Generar tallas según género
 const genero = z.gender || "unisex";
 const tallas = obtenerTallasPorGenero(genero);
 const tallasGrid = document.getElementById("tallas-grid");
@@ -42,6 +42,7 @@ function obtenerTallasPorGenero(genero) {
 // =========================
 // AÑADIR AL CARRITO
 // =========================
+
 document.getElementById("btn-cesta").addEventListener("click", () => {
   const cantidad = parseInt(document.getElementById("cantidad").value) || 1;
   const talla = document.getElementById("talla-seleccionada").value;
@@ -52,13 +53,13 @@ document.getElementById("btn-cesta").addEventListener("click", () => {
   }
 
   const zapatilla = {
-  name: z.name,
-  retailPrice: z.retailPrice,
-  talla: talla,
-  cantidad: cantidad,
-  image: z.image?.original || z.image?.small || z.image?.thumbnail || "img/zapa-generica.png"
-};
-
+    name: z.name,
+    brand: z.brand || "Desconocida",
+    retailPrice: z.retailPrice,
+    talla: talla,
+    cantidad: cantidad,
+    image: imagenZapa
+  };
 
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const index = carrito.findIndex(p => p.name === zapatilla.name && p.talla === zapatilla.talla);
@@ -75,8 +76,9 @@ document.getElementById("btn-cesta").addEventListener("click", () => {
 });
 
 // =========================
-// MOSTRAR CARRITO
+// MOSTRAR CARRITO MODAL
 // =========================
+
 function mostrarCarrito() {
   const modal = document.getElementById("carrito-modal");
   const lista = document.getElementById("lista-carrito");
@@ -94,18 +96,17 @@ function mostrarCarrito() {
       const subtotal = zapa.retailPrice * zapa.cantidad;
 
       const item = document.createElement("li");
-item.classList.add("item-carrito");
+      item.classList.add("item-carrito");
 
-item.innerHTML = `
-  <img src="${zapa.image}" alt="${zapa.name}">
-  <div class="info-zapa-carrito">
-    <strong>${zapa.name}</strong>
-    <p>Talla ${zapa.talla} x ${zapa.cantidad}</p>
-    <p>Total: €${(zapa.retailPrice * zapa.cantidad).toFixed(2)}</p>
-    <button onclick="eliminarDelCarrito(${i})">Quitar</button>
-  </div>
-`;
-
+      item.innerHTML = `
+        <img src="${zapa.image}" alt="${zapa.name}">
+        <div class="info-zapa-carrito">
+          <strong>${zapa.name}</strong>
+          <p>Talla ${zapa.talla} x ${zapa.cantidad}</p>
+          <p>Total: €${subtotal.toFixed(2)}</p>
+          <button onclick="eliminarDelCarrito(${i})">Quitar</button>
+        </div>
+      `;
 
       lista.appendChild(item);
       suma += subtotal;
@@ -139,5 +140,11 @@ function actualizarContadorCarrito() {
 document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
 
 function irACesta() {
-  alert("Aquí irías a la página de pago o resumen de compra. 🚀");
+  window.location.href = "checkout.html";
 }
+
+function mostrarFavoritos() {
+  window.location.href = "index.html?favoritos=true";
+}
+
+

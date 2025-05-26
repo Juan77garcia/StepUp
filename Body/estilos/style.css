@@ -30,10 +30,10 @@ body {
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 17px;
+  gap: 15px;
 }
 .navbar-icons input {
-  padding: 5px 10px;
+  padding: 15px 30px;
   border-radius: 20px;
   border: 1px solid #ccc;
   margin-right: 10px;
@@ -312,7 +312,7 @@ body {
 .navbar-links ul.navbar-menu {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 11px;
   align-items: center;
   margin: 0;
   padding: 0;
@@ -620,7 +620,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 200px;
+  gap: 190px;
 }
 
 .zapa-item {
@@ -651,7 +651,7 @@ body {
 
 .lanzamiento {
   text-align: center;
-  padding: 6rem 1rem;
+  padding: 6rem 6rem;
   background: #f9f9f9;
 }
 
@@ -664,7 +664,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14rem; /* Espacio controlado entre zapatillas */
+  gap: 10rem; /* Espacio controlado entre zapatillas */
 }
 
 .item-zapa {
@@ -676,7 +676,7 @@ body {
 }
 
 .item-zapa img {
-  width: 200%;
+  width: 150%;
   height: auto;
   border-radius: 8px;
 }
