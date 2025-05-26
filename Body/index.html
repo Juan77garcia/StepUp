@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="estilos/style.css" />
   <script defer src="JavaScript/script.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   
 
@@ -16,7 +17,11 @@
   <header class="navbar">
 
     <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
-    <nav class="navbar-links">
+    <div class="navbar-toggle" id="toggleMenu">
+  ☰
+</div>
+
+    <nav class="navbar-links" id="navbarLinks">
   <ul class="navbar-menu">
     <li><a href="#" onclick="mostrarInicio()">Inicio</a></li>
     <li><a href="#" onclick="filtrarPorGenero('men')">Hombres</a></li>
@@ -56,6 +61,7 @@
       <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
       <a href="login.html"><i>👤</i></a>
       <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
+    </div>
     </div>
   </header>
 

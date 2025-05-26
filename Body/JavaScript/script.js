@@ -521,3 +521,16 @@ function comprarAhora() {
 
   buscarZapatillas([{ nameField: "brand", value: marca }]);
 }
+
+
+
+
+
+
+ const toggleBtn = document.getElementById('toggleMenu');
+    const navLinks = document.getElementById('navbarLinks');
+
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+

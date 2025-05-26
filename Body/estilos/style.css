@@ -38,6 +38,82 @@ body {
   border: 1px solid #ccc;
   margin-right: 10px;
 }
+/* Estilo básico de navegación */
+.navbar-links ul.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links ul.navbar-menu li {
+  position: relative;
+}
+
+.navbar-links ul.navbar-menu li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+/* Menú de marcas */
+.menu-marcas {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  width: 80vw;
+  padding: 20px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.marcas-hover:hover .menu-marcas {
+  display: block;
+}
+
+/* Grid horizontal */
+.grid-marcas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
+}
+
+.grid-marcas img {
+  max-width: 70px;
+  height: auto;
+  filter: grayscale(100%);
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.grid-marcas img:hover {
+  filter: none;
+  transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .layout {
   display: flex;
   width: 100%;
@@ -814,3 +890,166 @@ body {
   border: 3px solid #111;
 }
 
+.navbar-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .navbar-links.active {
+    display: block;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .menu-marcas {
+    position: static;
+    transform: none;
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .grid-marcas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .navbar-icons {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+ 
+/*mejores marcas */
+
+.destacados-limpios {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.destacados-limpios h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.fila-zapatillas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 70px;
+}
+
+.zapa-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 120px;
+}
+
+.zapa-item img {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+.zapa-item p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+
+/*proximos lanzamientos*/
+
+.lanzamiento {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+}
+
+.lanzamiento h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.coleccion-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px; /* más espacio entre zapatillas */
+}
+
+.item-zapa {
+  max-width: 160px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease;
+  position: relative;
+}
+
+.item-zapa.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.item-zapa img {
+  width: 120%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+.item-zapa p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links, .footer-social {
+    margin-top: 20px;
+  }
+}
