@@ -1,302 +1,185 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout</title>
-  <link rel="stylesheet" href="estilos/checkout.css">
-</head>
-<style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagar ahora | StepUp</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      color: #111;
       padding: 2rem;
+      background: #f7f7f7;
     }
-
-    .checkout-container {
-      display: flex;
-      max-width: 1200px;
+    .container {
+      max-width: 500px;
       margin: auto;
-      gap: 3rem;
-      background: #fff;
+      background: white;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      align-items: flex-start;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
-
-    .formulario-envio {
-      flex: 2;
-    }
-
-    .resumen-compra {
-      flex: 1;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-
     h2 {
-      font-size: 1.4rem;
-      margin: 1.5rem 0 1rem;
-      color: #111;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px;
       margin-bottom: 1rem;
+    }
+    #card-element {
       border: 1px solid #ccc;
+      padding: 10px;
       border-radius: 6px;
-      font-size: 14px;
-      background-color: #fff;
+      margin-top: 10px;
     }
-
-    .nombre-apellido,
-    .codigo-ciudad-provincia {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .nombre-apellido input,
-    .codigo-ciudad-provincia input,
-    .codigo-ciudad-provincia select {
-      flex: 1;
-    }
-
-    label {
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 1.5rem;
-    }
-
     button {
-      width: 100%;
+      margin-top: 20px;
       padding: 12px;
-      background-color: #111;
-      color: #fff;
+      width: 100%;
+      font-size: 16px;
+      background: black;
+      color: white;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s;
     }
-
-    button:hover {
-      background-color: #333;
-    }
-
-    .item-checkout {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      border-bottom: 1px solid #eee;
-      padding: 1rem 0;
-    }
-
-    .item-checkout img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .total {
-      margin-top: 2rem;
-      font-size: 1rem;
-    }
-
-    .total p {
-      margin: 0.5rem 0;
-    }
-
-    .total strong {
-      font-size: 1.2rem;
-    }
-
-    .pago-metodos {
-      margin-top: 2rem;
-      background: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
-    }
-
-    .pago-metodos h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .texto-seguro {
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    .metodo-opcion {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 15px;
-      margin-bottom: 15px;
-      background: #fafafa;
-    }
-
-    .metodo-opcion label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .resultado {
+      margin-top: 20px;
       font-weight: bold;
-      cursor: pointer;
+      text-align: center;
     }
+    .item-checkout {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+}
 
-    .tarjeta-logos img {
-      margin-left: 6px;
-      height: 20px;
-    }
+.item-checkout img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
-    .tarjeta-form {
-      margin-top: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+.item-checkout-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
 
-    .dos-campos {
-      display: flex;
-      gap: 10px;
-    }
+.item-checkout-info p {
+  margin: 2px 0;
+}
 
-    .direccion-facturacion {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      color: #333;
-    }
-
-    .paypal-opcion img {
-      height: 24px;
-    }
   </style>
 </head>
 <body>
-  <main class="checkout-container">
-    <section class="formulario-envio">
-  <h2>Contacto</h2>
-  <input type="email" id="email" placeholder="Correo electrónico" required>
+  <div class="container">
+    <h2>Completa tu pago</h2>
+    <p>Total: <strong id="montoFinal">€0.00</strong></p>
 
-  <h2>Entrega</h2>
-  <select id="pais">
-    <option value="España">España</option>
-  </select>
-  <div class="nombre-apellido">
-    <input type="text" id="nombre" placeholder="Nombre" required>
-    <input type="text" id="apellido" placeholder="Apellidos" required>
-  </div>
-  <input type="text" id="direccion" placeholder="Dirección" required>
-  <input type="text" placeholder="Casa, apartamento, etc. (opcional)">
-  <div class="codigo-ciudad-provincia">
-    <input type="text" id="codigo_postal" placeholder="Código postal" required>
-    <input type="text" id="ciudad" placeholder="Ciudad" required>
-    <select id="provincia">
-      <option value="Madrid">Madrid</option>
-      <option value="Barcelona">Barcelona</option>
-      <option value="Valencia">Valencia</option>
-    </select>
-  </div>
-  <input type="tel" id="telefono" placeholder="Teléfono" required>
+    <div id="card-element"></div>
 
-  <!-- 🔽 AQUI dentro de formulario-envio -->
-  <section class="pago-metodos">
-    <h2>Pago</h2>
-    <p class="texto-seguro">Todas las transacciones son seguras y están encriptadas.</p>
-
-    <div class="metodo-opcion activa">
-      <label>
-        <input type="radio" name="pago" value="tarjeta" checked>
-        Tarjeta de crédito
-        <span class="tarjeta-logos">
-          <img src="https://img.icons8.com/color/32/visa.png" />
-          <img src="https://img.icons8.com/color/32/mastercard-logo.png" />
-          <img src="https://img.icons8.com/color/32/amex.png" />
-        </span>
-      </label>
-
-      <div class="tarjeta-form">
-        <input type="text" placeholder="Número de tarjeta" required />
-        <div class="dos-campos">
-          <input type="text" placeholder="Fecha de vencimiento (MM/AA)" required />
-          <input type="text" placeholder="Código de seguridad" required />
-        </div>
-        <input type="text" placeholder="Nombre del titular" required />
-        <label class="direccion-facturacion">
-          <input type="checkbox" checked />
-          Usar la dirección de envío como dirección de facturación
-        </label>
-      </div>
-    </div>
-
-    <div class="metodo-opcion paypal-opcion">
-      <label>
-        <input type="radio" name="pago" value="paypal">
-        PayPal
-        <img src="https://img.icons8.com/color/48/paypal.png" height="24" />
-      </label>
-    </div>
-  </section>
-</section>
-
+    <div class="resultado" id="resultado"></div>
 
     <section class="resumen-compra">
-      <div id="resumen-zapatillas"></div>
-      <div class="total">
-        <p>Subtotal: <span id="subtotal"></span></p>
-        <p>Total: <strong id="total"></strong></p>
-      </div>
-      <button onclick="procesarPago()">Finalizar compra</button>
-    </section>
-  </main>
+  <div id="resumen-zapatillas"></div>
+  <div class="total">
+    <p>Subtotal: <span id="subtotal"></span></p>
+    <p>Total: <strong id="total"></strong></p>
+    <button id="pagar">Pagar</button>
+  </div>
+</section>
 
-  <script src="JavaScript/checkout.js"></script>
-
+  </div>
 
   <script>
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    const resumenZapatillas = document.getElementById("resumen-zapatillas");
-    const subtotalEl = document.getElementById("subtotal");
-    const totalEl = document.getElementById("total");
-    let total = 0;
+  // checkout.js
 
-    carrito.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "item-checkout";
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
-        <div>
-          <p><strong>${item.name}</strong></p>
-          <p>Talla ${item.talla} x ${item.cantidad}</p>
-          <p>Precio: €${item.retailPrice}</p>
-        </div>
-      `;
-      resumenZapatillas.appendChild(div);
-      total += item.retailPrice * item.cantidad;
-    });
+// =========================
+// Verificar si el usuario está logeado
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario = localStorage.getItem("usuarioLogeado");
 
-    subtotalEl.textContent = `€${total.toFixed(2)}`;
-    totalEl.textContent = `€${total.toFixed(2)}`;
+  if (!usuario) {
+    localStorage.setItem("redirigirAPago", "true");
+    window.location.href = "login.html";
+    return;
+  }
 
-    function procesarPago() {
-      alert("Pago procesado (simulado). Gracias por tu compra.");
+  // =========================
+  // Renderizar productos del carrito
+  // =========================
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const resumenZapatillas = document.getElementById("resumen-zapatillas");
+  const subtotalEl = document.getElementById("subtotal");
+  const totalEl = document.getElementById("total");
+
+  let total = 0;
+  resumenZapatillas.innerHTML = "";
+
+  carrito.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "item-checkout";
+
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <div class="item-checkout-info">
+        <p><strong>${item.name}</strong></p>
+        <p>Talla ${item.talla} × ${item.cantidad}</p>
+        <p>Precio unitario: €${item.retailPrice}</p>
+        <p>Total: €${(item.retailPrice * item.cantidad).toFixed(2)}</p>
+      </div>
+    `;
+
+    resumenZapatillas.appendChild(div);
+    total += item.retailPrice * item.cantidad;
+  });
+
+  subtotalEl.textContent = `€${total.toFixed(2)}`;
+  totalEl.textContent = `€${total.toFixed(2)}`;
+
+  // =========================
+  // Stripe pago
+  // =========================
+  const stripe = Stripe("pk_test_51RReWT4J9OJ26E30jZS8V9deHVLiNr1OaFPCstlcYEsFekSQWugiLswFcdTPrtbnqRobpwHv374gDuICeK6lHb56001gBdDFpT");
+  const elements = stripe.elements();
+  const card = elements.create("card");
+  card.mount("#card-element");
+
+  document.getElementById("pagar").onclick = async () => {
+    document.getElementById("resultado").textContent = "Procesando...";
+
+    const amountInCents = Math.round(total * 100);
+
+    try {
+      const res = await fetch("https://stepup-proyect.onrender.com/payment/crear", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amountInCents })
+      });
+
+      const data = await res.json();
+
+      const result = await stripe.confirmCardPayment(data.clientSecret, {
+        payment_method: {
+          card: card
+        }
+      });
+
+      if (result.error) {
+        document.getElementById("resultado").textContent = "❌ Error: " + result.error.message;
+      } else if (result.paymentIntent.status === "succeeded") {
+        document.getElementById("resultado").textContent = "✅ ¡Pago exitoso!";
+        localStorage.removeItem("carrito");
+        setTimeout(() => window.location.href = "index.html", 3000);
+      }
+    } catch (error) {
+      console.error(error);
+      document.getElementById("resultado").textContent = "❌ Error al procesar el pago.";
     }
+  };
+});
+
   </script>
 </body>
 </html>
