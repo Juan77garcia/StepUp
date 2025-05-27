@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const total = document.getElementById("total");
 
   if (carrito.length === 0) {
-    container.innerHTML = "<p>Tu cesta está vacía 🚖</p>";
+    container.innerHTML = "<p>Tu cesta está vacía</p>";
     subtotal.textContent = "0.00";
     total.textContent = "0.00";
     return;

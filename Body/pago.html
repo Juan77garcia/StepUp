@@ -6,62 +6,90 @@
   <title>Pagar ahora | StepUp</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      padding: 2rem;
-      background: #f7f7f7;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-    h2 {
-      margin-bottom: 1rem;
-    }
-    #card-element {
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 6px;
-      margin-top: 10px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px;
-      width: 100%;
-      font-size: 16px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .resultado {
-      margin-top: 20px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .item-checkout {
+  body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 2rem;
+  color: #333;
+}
+
+.checkout-container {
+  max-width: 1000px;
+  margin: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.pago, .resumen {
+  flex: 1;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 22px;
+  color: #111;
+}
+
+#card-element {
+  border: 1px solid #ccc;
+  padding: 14px;
+  border-radius: 6px;
+  background: #f9f9f9;
+  margin-bottom: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #222;
+}
+
+.resultado {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
+  color: green;
+}
+
+.resumen {
+  background: #fdfdfd;
+  border-left: 1px solid #eee;
+  padding-left: 2rem;
+}
+
+.item-checkout {
   display: flex;
   gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
   align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
 }
 
 .item-checkout img {
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 .item-checkout-info {
-  display: flex;
-  flex-direction: column;
   font-size: 14px;
 }
 
@@ -69,18 +97,31 @@
   margin: 2px 0;
 }
 
+#subtotal, #total {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+
   </style>
 </head>
 <body>
-<div id="card-element"></div>
-<div id="resultado"></div>
+<div class="checkout-container">
+  <div class="pago">
+    <h2>Pago</h2>
+    <div id="card-element"></div>
+    <button id="pagar">Pagar</button>
+    <div id="resultado" class="resultado"></div>
+  </div>
 
-<p>Subtotal: <span id="subtotal">€0.00</span></p>
-<p>Total: <strong id="total">€0.00</strong></p>
+  <div class="resumen">
+    <h2>Resumen</h2>
+    <div id="resumen-zapatillas"></div>
+    <p><strong>Subtotal:</strong> <span id="subtotal">€0.00</span></p>
+    <p><strong>Total:</strong> <span id="total">€0.00</span></p>
+  </div>
+</div>
 
-<button id="pagar">Pagar</button>
-
-<div id="resumen-zapatillas"></div>
 
 
 
@@ -92,9 +133,6 @@
 // =========================
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // =============================
-  // Cargar carrito y calcular totales
-  // =============================
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const resumenZapatillas = document.getElementById("resumen-zapatillas");
   const subtotalEl = document.getElementById("subtotal");
@@ -124,53 +162,71 @@ document.addEventListener("DOMContentLoaded", async () => {
   subtotalEl.textContent = `€${total.toFixed(2)}`;
   totalEl.textContent = `€${total.toFixed(2)}`;
 
-  // =============================
-  // Stripe configuración
-  // =============================
   const stripe = Stripe("pk_test_51RReWT4J9OJ26E30jZS8V9deHVLiNr1OaFPCstlcYEsFekSQWugiLswFcdTPrtbnqRobpwHv374gDuICeK6lHb56001gBdDFpT");
   const elements = stripe.elements();
   const card = elements.create("card");
   card.mount("#card-element");
 
-  // =============================
-  // Procesar pago
-  // =============================
   document.getElementById("pagar").onclick = async () => {
     const resultado = document.getElementById("resultado");
     resultado.textContent = "⏳ Procesando...";
 
-    const amountInCents = Math.round(total * 100); // Stripe trabaja en centavos
+    const amountInCents = Math.round(total * 100);
 
     try {
-      const res = await fetch("https://stepup-proyect.onrender.com/payment/crear", {
+      const res = await fetch("https://stepup-proyect.onrender.com/payment/pay/sneakers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: amountInCents })
       });
 
-      if (!res.ok) {
-        throw new Error("Error en la comunicación con el servidor.");
-      }
+      if (!res.ok) throw new Error("Error en la comunicación con el servidor.");
 
       const data = await res.json();
-      console.log("🔐 Respuesta del backend:", data);
-
-      if (!data.clientSecret) {
-        throw new Error("No se recibió clientSecret del backend.");
-      }
+      if (!data.clientSecret) throw new Error("No se recibió clientSecret del backend.");
 
       const result = await stripe.confirmCardPayment(data.clientSecret, {
-        payment_method: {
-          card: card
-        }
+        payment_method: { card: card }
       });
 
       if (result.error) {
         resultado.textContent = "❌ Error: " + result.error.message;
-      } else if (result.paymentIntent.status === "succeeded") {
-        resultado.textContent = "✅ ¡Pago exitoso!";
-        localStorage.removeItem("carrito");
-        setTimeout(() => window.location.href = "index.html", 3000);
+        return;
+      }
+
+      if (result.paymentIntent.status === "succeeded") {
+        resultado.textContent = "✅ ¡Pago exitoso! Generando factura...";
+
+        const emailCliente = localStorage.getItem("usuarioLogeado"); // 🟢 si prefieres mantener esta clave
+        if (!emailCliente) {
+          resultado.textContent = "❌ No se encontró el correo del cliente.";
+          return;
+        }
+
+        const pedido = carrito.map(item => ({
+          productCode: item.productCode || "product1", // Asegurate de tener el sku real
+          amount: item.cantidad,
+          price: item.retailPrice,
+          description: item.name
+        }));
+
+        try {
+          const resPedido = await fetch(`https://stepup-proyect.onrender.com/order?email=${emailCliente}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(pedido)
+          });
+
+          if (!resPedido.ok) throw new Error("No se pudo guardar el pedido.");
+
+          resultado.textContent = "✅ Factura enviada al correo. Redirigiendo...";
+          localStorage.removeItem("carrito");
+          setTimeout(() => window.location.href = "index.html", 3000);
+
+        } catch (err) {
+          console.error("❌ Error al guardar pedido:", err);
+          resultado.textContent = "✅ Pago exitoso, pero hubo un error al guardar el pedido.";
+        }
       } else {
         resultado.textContent = "⚠️ Estado de pago inesperado.";
       }
@@ -181,11 +237,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 });
-</script>
 
 </script>
 
-
-  </script>
 </body>
 </html>

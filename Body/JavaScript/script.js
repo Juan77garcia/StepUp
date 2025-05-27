@@ -374,16 +374,15 @@ if (banner) {
 document.addEventListener("DOMContentLoaded", () => {
   actualizarContadorCarrito();
 
+  // Obtenemos posibles flags de navegación cruzada
   const params = new URLSearchParams(window.location.search);
   const genero = params.get("filtro");
   const marca = params.get("marca");
-
   const marcaGuardada = localStorage.getItem("marcaBusqueda");
   const favoritosFlag = localStorage.getItem("mostrarFavoritos");
-  const verTodoFlag = localStorage.getItem("Todo");
+  const verTodoFlag = localStorage.getItem("verTodo");
 
   if (marcaGuardada) {
-    // 🔍 Viene del buscador de otra página
     localStorage.removeItem("marcaBusqueda");
 
     ocultarHero();
@@ -397,7 +396,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   } else if (favoritosFlag) {
-    // ❤️ Viene de "Ver favoritos"
     localStorage.removeItem("mostrarFavoritos");
 
     ocultarHero();
@@ -418,7 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
   } else if (verTodoFlag) {
-    // 👟 Viene de "Ver todo"
     localStorage.removeItem("verTodo");
 
     ocultarHero();
@@ -433,11 +430,9 @@ document.addEventListener("DOMContentLoaded", () => {
     buscarZapatillasSoloMarcasValidas();
 
   } else if (genero) {
-    // 👕 Filtrado por género
     filtrarPorGenero(genero);
 
   } else if (marca) {
-    // 🏷️ Filtrado por marca desde index
     ocultarHero();
     mostrarFiltros();
     document.getElementById("resultado").style.display = "grid";
@@ -445,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
     buscarZapatillas([{ nameField: "brand", value: marca }]);
 
   } else {
-    // 🏠 Inicio normal
+    // ✅ Si no hay nada activado, mostrar la vista de inicio
     mostrarInicio();
   }
 });
