@@ -50,6 +50,7 @@ document.getElementById("register-form").addEventListener("submit", async functi
 
     // Mostrar verificación si todo va bien
     if (res.ok && data.ok !== false) {
+      
       document.querySelector(".register-container").innerHTML = `
         <h2>Verifica tu correo</h2>
         <p>Hemos enviado un código a <strong>${email}</strong>. Escríbelo abajo para activar tu cuenta.</p>

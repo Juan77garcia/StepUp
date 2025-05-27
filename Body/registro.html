@@ -13,24 +13,29 @@
   <div class="logo">StepUp</div>
   <p style="font-size: 30px;">Crear cuenta</p>
   <form class="register-form" id="register-form">
-  <input type="text" name="nombre" placeholder="Nombre" required />
-  <input type="text" name="apellido" placeholder="Apellido" required />
-  <input type="email" name="email" placeholder="Correo electrónico" required />
-  <input type="password" name="password" placeholder="Contraseña" required />
-  <input type="text" name="direccion" placeholder="Dirección" required />
-  <input type="text" name="ciudad" placeholder="Ciudad" required />
-  <input type="text" name="codigo_postal" placeholder="Código Postal" required />
-  <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento" required />
-  <input type="tel" name="telefono" placeholder="Teléfono" required />
+  <div class="form-grid">
+    <input type="text" name="nombre" placeholder="Nombre" required />
+    <input type="text" name="apellido" placeholder="Apellido" required />
+    <input type="text" name="direccion" placeholder="Dirección" required />
+    
+    <input type="email" name="email" placeholder="Correo electrónico" required />
+    <input type="password" name="password" placeholder="Contraseña" required />
+    <input type="text" name="ciudad" placeholder="Ciudad" required />
+    
+    <input type="text" name="codigo_postal" placeholder="Código Postal" required />
+    <input type="date" name="fecha_nacimiento" required />
+    <input type="tel" name="telefono" placeholder="Teléfono" required />
+  </div>
+
   <button type="submit">Registrarse</button>
 </form>
+
+<div class="register-link">
+  ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
+</div>
+
 <p id="mensaje"></p>
 
-  <div class="register-link">
-    ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
-  </div>
-  <p id="mensaje"></p>
-</div>
 
 <script src="JavaScript/registro.js"></script>
 </body>

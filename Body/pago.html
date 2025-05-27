@@ -72,24 +72,17 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Completa tu pago</h2>
-    <p>Total: <strong id="montoFinal">€0.00</strong></p>
+<div id="card-element"></div>
+<div id="resultado"></div>
 
-    <div id="card-element"></div>
+<p>Subtotal: <span id="subtotal">€0.00</span></p>
+<p>Total: <strong id="total">€0.00</strong></p>
 
-    <div class="resultado" id="resultado"></div>
+<button id="pagar">Pagar</button>
 
-    <section class="resumen-compra">
-  <div id="resumen-zapatillas"></div>
-  <div class="total">
-    <p>Subtotal: <span id="subtotal"></span></p>
-    <p>Total: <strong id="total"></strong></p>
-    <button id="pagar">Pagar</button>
-  </div>
-</section>
+<div id="resumen-zapatillas"></div>
 
-  </div>
+
 
   <script>
   // checkout.js
@@ -97,18 +90,11 @@
 // =========================
 // Verificar si el usuario está logeado
 // =========================
-document.addEventListener("DOMContentLoaded", () => {
-  const usuario = localStorage.getItem("usuarioLogeado");
 
-  if (!usuario) {
-    localStorage.setItem("redirigirAPago", "true");
-    window.location.href = "login.html";
-    return;
-  }
-
-  // =========================
-  // Renderizar productos del carrito
-  // =========================
+document.addEventListener("DOMContentLoaded", async () => {
+  // =============================
+  // Cargar carrito y calcular totales
+  // =============================
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const resumenZapatillas = document.getElementById("resumen-zapatillas");
   const subtotalEl = document.getElementById("subtotal");
@@ -138,18 +124,22 @@ document.addEventListener("DOMContentLoaded", () => {
   subtotalEl.textContent = `€${total.toFixed(2)}`;
   totalEl.textContent = `€${total.toFixed(2)}`;
 
-  // =========================
-  // Stripe pago
-  // =========================
+  // =============================
+  // Stripe configuración
+  // =============================
   const stripe = Stripe("pk_test_51RReWT4J9OJ26E30jZS8V9deHVLiNr1OaFPCstlcYEsFekSQWugiLswFcdTPrtbnqRobpwHv374gDuICeK6lHb56001gBdDFpT");
   const elements = stripe.elements();
   const card = elements.create("card");
   card.mount("#card-element");
 
+  // =============================
+  // Procesar pago
+  // =============================
   document.getElementById("pagar").onclick = async () => {
-    document.getElementById("resultado").textContent = "Procesando...";
+    const resultado = document.getElementById("resultado");
+    resultado.textContent = "⏳ Procesando...";
 
-    const amountInCents = Math.round(total * 100);
+    const amountInCents = Math.round(total * 100); // Stripe trabaja en centavos
 
     try {
       const res = await fetch("https://stepup-proyect.onrender.com/payment/crear", {
@@ -158,7 +148,16 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ amount: amountInCents })
       });
 
+      if (!res.ok) {
+        throw new Error("Error en la comunicación con el servidor.");
+      }
+
       const data = await res.json();
+      console.log("🔐 Respuesta del backend:", data);
+
+      if (!data.clientSecret) {
+        throw new Error("No se recibió clientSecret del backend.");
+      }
 
       const result = await stripe.confirmCardPayment(data.clientSecret, {
         payment_method: {
@@ -167,18 +166,25 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (result.error) {
-        document.getElementById("resultado").textContent = "❌ Error: " + result.error.message;
+        resultado.textContent = "❌ Error: " + result.error.message;
       } else if (result.paymentIntent.status === "succeeded") {
-        document.getElementById("resultado").textContent = "✅ ¡Pago exitoso!";
+        resultado.textContent = "✅ ¡Pago exitoso!";
         localStorage.removeItem("carrito");
         setTimeout(() => window.location.href = "index.html", 3000);
+      } else {
+        resultado.textContent = "⚠️ Estado de pago inesperado.";
       }
+
     } catch (error) {
-      console.error(error);
-      document.getElementById("resultado").textContent = "❌ Error al procesar el pago.";
+      console.error("❌ Error en el proceso de pago:", error);
+      resultado.textContent = "❌ Error al procesar el pago.";
     }
   };
 });
+</script>
+
+</script>
+
 
   </script>
 </body>
