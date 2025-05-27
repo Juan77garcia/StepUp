@@ -20,7 +20,7 @@
     <li><a href="#" onclick="filtrarPorGenero('unisex')">Unisex</a></li>
 
     <li class="menu-item marcas-hover">
-      <a href="#">Marcas</a>
+      <a href="#">Marcas ⬇️</a>
       <div class="menu-marcas">
         <div class="grid-marcas">
           <img src="img/nike.jpg" alt="Nike" data-marca="nike" />
@@ -53,6 +53,25 @@
       <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
     </div>
   </header>
+
+
+<div id="carrito-modal" class="carrito-lateral oculto">
+  <div class="carrito-contenido">
+    <button onclick="cerrarCarrito()" class="cerrar-carrito">X</button>
+    <h3>Tu cesta</h3>
+    <ul id="lista-carrito"></ul>
+    <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
+    <button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
+    <button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
+  </div>
+</div><br><br><br><br>
+
+
+
+
+
+
+
 
   <main class="checkout-container">
     <section class="cart-left">

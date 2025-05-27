@@ -125,9 +125,8 @@ function buscarZapatillasSoloMarcasValidas() {
 function aplicarFiltros() {
   ocultarHero();
 
-  const marca = document.getElementById("marcaFiltro").value.trim();
-  const precioMin = parseInt(document.getElementById("precioMin").value);
-  const precioMax = parseInt(document.getElementById("precioMax").value);
+  const marca = document.getElementById("marcaFiltro").value.trim().toLowerCase();
+  const color = document.getElementById("colorFiltro").value.trim().toLowerCase();
 
   const criterios = [];
 
@@ -136,19 +135,16 @@ function aplicarFiltros() {
     criterios.push({ nameField: "brand", value: marca });
   }
 
-  // Si se ha indicado al menos un límite de precio
-  if (!isNaN(precioMin) || !isNaN(precioMax)) {
-    const filtroPrecio = { nameField: "retailPrice" };
-    if (!isNaN(precioMin)) filtroPrecio.min = precioMin;
-    if (!isNaN(precioMax)) filtroPrecio.max = precioMax;
-    criterios.push(filtroPrecio);
+  // Si se ha seleccionado un color
+  if (color) {
+    criterios.push({ nameField: "colorway", value: color });
   }
 
   // Mostrar zapatillas según los criterios
   buscarZapatillas(criterios);
   console.log("Criterios enviados:", criterios);
-
 }
+
 
 
 // =========================
@@ -382,19 +378,79 @@ document.addEventListener("DOMContentLoaded", () => {
   const genero = params.get("filtro");
   const marca = params.get("marca");
 
-  if (genero) {
-    filtrarPorGenero(genero); // ✅ hombre, mujer, niño
-  } else if (marca) {
+  const marcaGuardada = localStorage.getItem("marcaBusqueda");
+  const favoritosFlag = localStorage.getItem("mostrarFavoritos");
+  const verTodoFlag = localStorage.getItem("Todo");
+
+  if (marcaGuardada) {
+    // 🔍 Viene del buscador de otra página
+    localStorage.removeItem("marcaBusqueda");
+
     ocultarHero();
     mostrarFiltros();
-    console.log("Marca detectada:", marca);
+    buscarZapatillas([{ nameField: "brand", value: marcaGuardada }]);
+
     document.getElementById("resultado").style.display = "grid";
-    ocultarSeccionesInicio(); // oculta destacados/publi/etc.
-    buscarZapatillas([{ nameField: "brand", value: marca }]); // ✅ busca por marca
+    ["lanzamientos-2025", "publi", "genders", "destacados-inicio"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+
+  } else if (favoritosFlag) {
+    // ❤️ Viene de "Ver favoritos"
+    localStorage.removeItem("mostrarFavoritos");
+
+    ocultarHero();
+    mostrarFiltros();
+    document.getElementById("resultado").style.display = "grid";
+
+    ["lanzamientos-2025", "publi", "genders", "destacados-inicio"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+
+    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+    if (favoritos.length === 0) {
+      document.getElementById("resultado").innerHTML = "<p>No tienes favoritos aún.</p>";
+    } else {
+      mostrarZapatillas(favoritos);
+    }
+
+  } else if (verTodoFlag) {
+    // 👟 Viene de "Ver todo"
+    localStorage.removeItem("verTodo");
+
+    ocultarHero();
+    mostrarFiltros();
+    document.getElementById("resultado").style.display = "grid";
+
+    ["lanzamientos-2025", "publi", "genders", "destacados-inicio"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+
+    buscarZapatillasSoloMarcasValidas();
+
+  } else if (genero) {
+    // 👕 Filtrado por género
+    filtrarPorGenero(genero);
+
+  } else if (marca) {
+    // 🏷️ Filtrado por marca desde index
+    ocultarHero();
+    mostrarFiltros();
+    document.getElementById("resultado").style.display = "grid";
+    ocultarSeccionesInicio();
+    buscarZapatillas([{ nameField: "brand", value: marca }]);
+
   } else {
-    mostrarInicio(); // 🏠 carga home normal
+    // 🏠 Inicio normal
+    mostrarInicio();
   }
 });
+
+
 
 
 

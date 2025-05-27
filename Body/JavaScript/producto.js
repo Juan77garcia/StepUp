@@ -144,7 +144,52 @@ function irACesta() {
 }
 
 function mostrarFavoritos() {
-  window.location.href = "index.html?favoritos=true";
+  localStorage.setItem("mostrarFavoritos", "true");
+  window.location.href = "index.html";
 }
 
 
+
+
+const input = document.getElementById("marcaInput");
+
+if (input) {
+  input.addEventListener("keyup", () => {
+    const marca = input.value.trim().toLowerCase();
+    const MARCAS_VALIDAS = [
+      "nike", "adidas", "jordan", "new balance", "converse",
+      "puma", "reebok", "vans", "asics", "hoka one one",
+      "crocs", "salomon", "balenciaga", "gucci",
+      "alexander mcqueen", "dior", "off-white", "golden goose", "air jordan"
+    ];
+
+    if (marca && MARCAS_VALIDAS.includes(marca)) {
+      localStorage.setItem("marcaBusqueda", marca);
+      window.location.href = "index.html?buscar=true";
+    }
+  });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logos = document.querySelectorAll("[data-marca]");
+
+  logos.forEach(logo => {
+    logo.addEventListener("click", () => {
+      const marca = logo.getAttribute("data-marca");
+      if (marca) {
+        localStorage.setItem("marcaBusqueda", marca.toLowerCase());
+        window.location.href = "index.html";
+      }
+    });
+  });
+});
+
+
+
+
+function buscarZapatillasSoloMarcasValidas() {
+  localStorage.setItem("Todo", "true");
+  window.location.href = "index.html";
+}
