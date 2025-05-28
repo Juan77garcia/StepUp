@@ -478,10 +478,59 @@ textarea {
     flex-direction: column;
   }
 
-  .sidebar {
+  @media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
     width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #eee;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .navbar-links.active {
+    display: block;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .menu-marcas {
+    position: static;
+    transform: none;
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+ .navbar-icons input {
+  padding: 5px 5px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+  .grid-marcas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .navbar-icons {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 10px;
   }
 
   .footer-content {
@@ -493,4 +542,5 @@ textarea {
   .footer-links, .footer-social {
     margin-top: 20px;
   }
+}
 }

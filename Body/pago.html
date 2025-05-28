@@ -6,7 +6,7 @@
   <title>Pagar ahora | StepUp</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
-  body {
+   body {
   font-family: 'Segoe UI', sans-serif;
   background: #f4f6f8;
   margin: 0;
@@ -23,10 +23,12 @@
   display: flex;
   gap: 2rem;
   padding: 2rem;
+  flex-wrap: wrap;
 }
 
 .pago, .resumen {
-  flex: 1;
+  flex: 1 1 45%;
+  min-width: 300px;
 }
 
 h2 {
@@ -101,6 +103,26 @@ button:hover {
   font-weight: bold;
   font-size: 16px;
 }
+
+/* ✅ RESPONSIVE */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .checkout-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .resumen {
+    border-left: none;
+    border-top: 1px solid #eee;
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+}
+
 
 
   </style>
@@ -221,7 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           resultado.textContent = "✅ Factura enviada al correo. Redirigiendo...";
           localStorage.removeItem("carrito");
-          setTimeout(() => window.location.href = "index.html", 3000);
+          setTimeout(() => window.location.href = "gracias.html", 3000);
 
         } catch (err) {
           console.error("❌ Error al guardar pedido:", err);

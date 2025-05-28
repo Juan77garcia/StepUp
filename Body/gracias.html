@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gracias por tu compra</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .gracias-box {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .gracias-box h1 {
+      font-size: 26px;
+      margin-bottom: 1rem;
+    }
+
+    .gracias-box p {
+      font-size: 16px;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="gracias-box">
+    <h1>¡Gracias por tu compra! 🎉</h1>
+    <p id="nombre-cliente"></p>
+    <p id="mensaje-confirmacion"></p>
+  </div>
+
+  <script>
+    const nombre = localStorage.getItem("nombreUsuario") || "Cliente";
+    const email = localStorage.getItem("usuarioLogeado") || "[correo no encontrado]";
+
+    document.getElementById("nombre-cliente").textContent = `Hola, ${nombre}`;
+    document.getElementById("mensaje-confirmacion").textContent = `La factura fue enviada a ${email}`;
+  </script>
+</body>
+</html>

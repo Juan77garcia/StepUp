@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="estilos/style.css" />
   <script defer src="JavaScript/script.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
   
 
@@ -56,12 +57,25 @@
   </ul>
 </nav>
 
-    <div class="navbar-icons">
-      <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
-      <i id="icono-favoritos" onclick="mostrarFavoritos()">❤️</i>
-      <a href="login.html"><i>👤</i></a>
-      <i id="carrito-icono" onclick="mostrarCarrito()">🛒 <span id="contador-carrito">0</span></i>
-    </div>
+   <div class="navbar-icons">
+  <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
+
+  <i class="fas fa-heart" id="icono-favoritos" onclick="mostrarFavoritos()" title="Favoritos"></i>
+
+  <!-- Contenedor de login + nombre -->
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <a href="login.html" title="Iniciar sesión">
+      <i class="fa-regular fa-user"></i>
+    </a>
+    <span id="nombre-usuario" style="font-size: 12px;"></span>
+  </div>
+
+  <i class="fas fa-shopping-cart" id="carrito-icono" onclick="mostrarCarrito()" title="Carrito">
+    <span id="contador-carrito">0</span>
+  </i>
+</div>
+
+
     </div>
   </header>
 

@@ -585,3 +585,14 @@ function comprarAhora() {
       navLinks.classList.toggle('active');
     });
 
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const nombre = localStorage.getItem("nombreUsuario");
+  const nombreContenedor = document.getElementById("nombre-usuario");
+
+  if (nombre && nombreContenedor) {
+    nombreContenedor.textContent = `Hola, ${nombre}`;
+  }
+});

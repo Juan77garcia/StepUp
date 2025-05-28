@@ -193,3 +193,14 @@ function buscarZapatillasSoloMarcasValidas() {
   localStorage.setItem("Todo", "true");
   window.location.href = "index.html";
 }
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const nombre = localStorage.getItem("nombreUsuario");
+  const nombreContenedor = document.getElementById("nombre-usuario");
+
+  if (nombre && nombreContenedor) {
+    nombreContenedor.textContent = `Hola, ${nombre}`;
+  }
+});
