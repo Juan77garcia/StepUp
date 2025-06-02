@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagar ahora | StepUp</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="stylesheet" href="/Body/estilos/pago.css" />
+  <script defer src="/Body/JavaScript/pago.js"></script>
+</head>
+<body>
+<div class="checkout-container">
+  <div class="pago">
+    <h2>Pago</h2>
+    <div id="card-element"></div>
+    <button id="pagar">Pagar</button>
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <div class="resumen">
+    <h2>Resumen</h2>
+    <div id="resumen-zapatillas"></div>
+    <p><strong>Subtotal:</strong> <span id="subtotal">€0.00</span></p>
+    <p><strong>Total:</strong> <span id="total">€0.00</span></p>
+  </div>
+</div>
+
+</body>
+</html>

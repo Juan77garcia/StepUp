@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Urbanist', sans-serif;
+  font-family: arial;
   background: url('https://images.unsplash.com/photo-1611175694980-28f22148760f') no-repeat center center fixed;
   background-size: cover;
   display: flex;
@@ -10,6 +10,8 @@ body {
   height: 100vh;
   backdrop-filter: brightness(0.7);
 }
+
+/*estilo del formulario del login*/
 
 .login-container {
   background: rgba(0, 0, 0, 0.8);

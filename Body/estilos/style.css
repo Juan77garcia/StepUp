@@ -1,8 +1,39 @@
 body {
   margin: 0;
-  font-family: Thin 100 Italic;
+  font-family: arial;
   background: #f8f8f8;
 }
+/*logo*/
+.logo-container {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  overflow: hidden;
+}
+.logo {
+  width: 80px;
+  height: 80px;
+  animation: rotar 7s linear infinite;
+}
+
+    
+    @keyframes rotar {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(-360deg);
+      }
+    }
+
+
+
+
+/*menu de navegacion*/
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -57,6 +88,11 @@ body {
   font-weight: bold;
   color: black;
 }
+.navbar-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
 
 /* Menú de marcas */
 .menu-marcas {
@@ -100,19 +136,39 @@ body {
 }
 
 
+/*contenido y banners principales*/
+.contenido {
+  flex: 1;
+}
+.hero-banner {
+  width: 100%;
+  overflow: hidden;
+}
+.hero-banner img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  border: 2px solid #eaeaea; /* como si tuviera un marco blanco suave */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
 
 
+.hero-banner img:hover {
+  transform: scale(1.005); /* mini zoom */
+}
 
+.hero-banner.hidden {
+  display: none !important;
+}
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+#banner-img {
+  transition: opacity 1s ease-in-out;
+}
 
-
-
-
-
-
-
-
-
-
+/*filtro lateral de las zapatillas*/
 
 .layout {
   display: flex;
@@ -151,49 +207,7 @@ body {
   display: none !important;
 }
 
-
-
-
-
-.contenido {
-  flex: 1;
-}
-.hero-banner {
-  width: 100%;
-  overflow: hidden;
-}
-.hero-banner img {
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  border: 2px solid #eaeaea; /* como si tuviera un marco blanco suave */
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-}
-
-
-.hero-banner img:hover {
-  transform: scale(1.005); /* mini zoom */
-}
-
-.hero-banner.hidden {
-  display: none !important;
-}
-.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-#banner-img {
-  transition: opacity 1s ease-in-out;
-}
-
-
-
-
-
-
-
-
-
+/*zapatilla y estilo*/
 .grid-contenedor {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -294,8 +308,6 @@ body {
 
 
 
-
-
 /* Modal fondo blanco centrado */
 .modal-zapa {
   display: none;
@@ -355,118 +367,7 @@ body {
   position: relative;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilo básico de navegación */
-.navbar-links ul.navbar-menu {
-  list-style: none;
-  display: flex;
-  gap: 11px;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-links ul.navbar-menu li {
-  position: relative;
-}
-
-.navbar-links ul.navbar-menu li a {
-  text-decoration: none;
-  font-weight: bold;
-  color: black;
-}
-
-/* Menú de marcas */
-.menu-marcas {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  width: 80vw;
-  padding: 20px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-  border-radius: 10px;
-  z-index: 1000;
-}
-
-.marcas-hover:hover .menu-marcas {
-  display: block;
-}
-
-/* Grid horizontal */
-.grid-marcas {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 20px;
-  align-items: center;
-  justify-items: center;
-}
-
-.grid-marcas img {
-  max-width: 70px;
-  height: auto;
-  filter: grayscale(100%);
-  transition: 0.2s ease;
-  cursor: pointer;
-}
-
-.grid-marcas img:hover {
-  filter: none;
-  transform: scale(1.05);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.logo-container {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: 800px;
-  overflow: hidden;
-}
+/*cesta */
 
 .carrito-lateral {
   position: fixed;
@@ -557,24 +458,191 @@ body {
   color: #dc3545;
 }
 
-
-
-.logo {
-  width: 80px;
-  height: 80px;
-  animation: rotar 7s linear infinite;
+/*estilo de las mejores marcas*/
+.destacados-limpios {
+  text-align: center;
+  padding: 2rem 1rem;
 }
 
-    
-    @keyframes rotar {
-      from {
-        transform: rotateY(0deg);
-      }
-      to {
-        transform: rotateY(-360deg);
-      }
-    }
+.destacados-limpios h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
 
+.fila-zapatillas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 190px;
+}
+
+.zapa-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 120px;
+}
+
+.zapa-item img {
+  width: 250px;
+  height: auto;
+  object-fit: contain;
+}
+
+.zapa-item p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+
+/*estilo de los lanzamiento proximos*/
+.lanzamiento {
+  text-align: center;
+  padding: 6rem 6rem;
+  background: #f9f9f9;
+}
+
+.lanzamiento h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.coleccion-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10rem; /* Espacio controlado entre zapatillas */
+}
+
+.item-zapa {
+  max-width: 200px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease;
+  position: relative;
+}
+
+.item-zapa img {
+  width: 150%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.item-zapa p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Animación al hacer scroll */
+.item-zapa.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* banners publicitarios*/
+.slider-banner {
+  width: 100%;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.slider-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.4s ease;
+  border-radius: 12px;
+}
+
+.btn-next {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.btn-extra {
+  position: absolute;
+  bottom: 1rem;
+  right: 3rem;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-extra:hover {
+  background: #f2f2f2;
+}
+
+/*estilo de los generos*/
+.comprar-genero {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.comprar-genero h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.genero-opciones {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.opcion-genero {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.opcion-genero img {
+  width: 220px;         /* antes 150px */
+  height: 220px;        /* antes 150px */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid transparent;
+  transition: transform 0.3s, border 0.3s;
+}
+
+.opcion-genero p {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.opcion-genero:hover img {
+  transform: scale(1.05);
+  border: 3px solid #111;
+}
+
+
+/*pie de pagina*/
 
 .footer {
   background-color: #0e0e0e;
@@ -677,224 +745,7 @@ body {
 
 
 
-
-
-
-
-
-.destacados-limpios {
-  text-align: center;
-  padding: 2rem 1rem;
-}
-
-.destacados-limpios h2 {
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
-}
-
-.fila-zapatillas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 190px;
-}
-
-.zapa-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 120px;
-}
-
-.zapa-item img {
-  width: 250px;
-  height: auto;
-  object-fit: contain;
-}
-
-.zapa-item p {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-}
-
-
-
-
-
-
-
-
-
-.lanzamiento {
-  text-align: center;
-  padding: 6rem 6rem;
-  background: #f9f9f9;
-}
-
-.lanzamiento h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-.coleccion-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10rem; /* Espacio controlado entre zapatillas */
-}
-
-.item-zapa {
-  max-width: 200px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.6s ease;
-  position: relative;
-}
-
-.item-zapa img {
-  width: 150%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.item-zapa p {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* Animación al hacer scroll */
-.item-zapa.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.slider-banner {
-  width: 100%;
-  position: relative;
-  margin: 2rem 0;
-}
-
-.slider-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.slider-container img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: opacity 0.4s ease;
-  border-radius: 12px;
-}
-
-.btn-next {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 50%;
-  font-weight: bold;
-}
-
-.btn-extra {
-  position: absolute;
-  bottom: 1rem;
-  right: 3rem;
-  background: #fff;
-  color: #000;
-  border: none;
-  padding: 0.9rem 1.5rem;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn-extra:hover {
-  background: #f2f2f2;
-}
-
-
-
-
-
-
-
-.comprar-genero {
-  text-align: center;
-  padding: 4rem 1rem;
-}
-
-.comprar-genero h2 {
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
-  color: #222;
-}
-
-.genero-opciones {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.opcion-genero {
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.opcion-genero img {
-  width: 220px;         /* antes 150px */
-  height: 220px;        /* antes 150px */
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid transparent;
-  transition: transform 0.3s, border 0.3s;
-}
-
-.opcion-genero p {
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.opcion-genero:hover img {
-  transform: scale(1.05);
-  border: 3px solid #111;
-}
-
-.navbar-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-}
+/*adaptar a pantallas más pequeñas*/
 
 @media (max-width: 768px) {
   .navbar-links {
@@ -1214,9 +1065,6 @@ body {
   height: auto;
   object-fit: cover;
 }
-
-
-
 
 
 

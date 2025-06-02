@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle del Producto</title>
+  <link rel="stylesheet" href="/Body/estilos/producto.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script defer src="/Body/JavaScript/producto.js"></script>
+</head>
+<body>
+  <!-- menu de navegacion-->
+<header class="navbar">
+  <a href="index.html"><img src="/Body/img/logo.png" alt="StepUp Logo" class="logo" /></a>
+  <nav class="navbar-links">
+    <ul class="navbar-menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html?filtro=men">Hombres</a></li>
+      <li><a href="index.html?filtro=women">Mujeres</a></li>
+      <li><a href="index.html?filtro=child">Niños</a></li>
+      <li><a href="index.html?filtro=unisex">Unisex</a></li>
+      <li class="menu-item marcas-hover">
+      <a href="#">Marcas ⬇️</a>
+      <div class="menu-marcas">
+        <div class="grid-marcas">
+            <img src="/Body/img/nike.jpg" alt="Nike" data-marca="nike" />
+          <img src="/Body/img/Adidas.png" alt="Adidas" data-marca="adidas" />
+          <img src="/Body/img/conv.jpg" alt="Converse" data-marca="converse" />
+          <img src="/Body/img/balance.png" alt="New Balance" data-marca="new balance" />
+          <img src="/Body/img/jordan.jpg" alt="Jordan" data-marca="jordan" />
+          <img src="/Body/img/puma.png" alt="Puma" data-marca="puma" />
+          <img src="/Body/img/crocs.png" alt="Crocs" data-marca="crocs" />
+          <img src="/Body/img/asics.png" alt="Asics" data-marca="asics" />
+          <img src="/Body/img/vans.png" alt="Vans" data-marca="vans" />
+          <img src="/Body/img/alexander.png " alt="ALEXANDER MCQUEEN" data-marca="ALEXANDER MCQUEEN" />
+          <img src="/Body/img/salomin.jpg" alt="Salomon" data-marca="salomon" />
+          <img src="/Body/img/reebok.png" alt="Reebok" data-marca="reebok" />
+          <img src="/Body/img/hoka.png" alt="Hoka" data-marca="hoka one one" />
+          <img src="/Body/img/off.jpg" alt="OFF-WHITE" data-marca="OFF-WHITE" />
+          <img src="/Body/img/dior.jpg" alt="DIOR" data-marca="DIOR" />
+          <img src="/Body/img/logobalenciaga.jpeg" alt="balenciaga" data-marca="balenciaga" />
+          <img src="/Body/img/logogolde.jpeg" alt="golden goose" data-marca="golden goose" />
+          <img src="/Body/img/logogucci.jpeg" alt="gucci" data-marca="gucci" />
+          <img src="/Body/img/logoversa.jpeg" alt="Versace" data-marca="Versace" />
+        </div>
+      </div>
+    </li>
+      <li><a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a></li>
+    </ul>
+  </nav>
+  <div class="navbar-icons">
+  <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
+
+  <i class="fas fa-heart" id="icono-favoritos" onclick="mostrarFavoritos()" title="Favoritos"></i>
+
+  <!-- Contenedor de login + nombre -->
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <a href="login.html" title="Iniciar sesión">
+      <i class="fa-regular fa-user"></i>
+    </a>
+    <span id="nombre-usuario" style="font-size: 12px;"></span>
+  </div>
+
+  <i class="fas fa-shopping-cart" id="carrito-icono" onclick="mostrarCarrito()" title="Carrito">
+    <span id="contador-carrito">0</span>
+  </i>
+</div>
+</header><br><br>
+
+<!--zapatilla-->
+  <div class="producto-container">
+    
+    <!-- Imagen de la zapatilla -->
+    <div class="producto-imagen">
+      <img id="img-zapa" src="" alt="Zapatilla" />
+    </div>
+
+    <!--informacion de la producto -->
+    <div class="producto-info">
+      <h2 id="nombre-zapa">Nombre</h2>
+      <p id="marca-zapa">Marca:</p>
+      <p id="color-zapa">Color:</p>
+      <p id="precio-zapa">Precio:</p>
+
+      <label for="tallas-grid">Talla:</label>
+      <div class="tallas-grid" id="tallas-grid"></div>
+      <input type="hidden" id="talla-seleccionada" />
+
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" value="1" min="1" />
+
+      <button id="btn-cesta">Añadir a la cesta</button>
+    </div>
+  </div>
+  
+  
+  <!--estilo de la cesta lateral-->
+<div id="carrito-modal" class="carrito-lateral oculto">
+  <div class="carrito-contenido">
+    <button onclick="cerrarCarrito()" class="cerrar-carrito">X</button>
+    <h3>Tu cesta</h3>
+    <ul id="lista-carrito"></ul>
+    <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
+    <button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
+    <button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
+  </div>
+</div><br><br><br><br>
+
+  
+
+<!--Pie de pagina-->
+ <footer class="footer">
+  <div class="footer-wrapper">
+    <div class="footer-column brand">
+      <h2>StepUp</h2>
+      <p>Sube tu estilo. Cada paso cuenta.</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Explora</h3>
+      <ul>
+        <li><a href="index.html" onclick="mostrarInicio()">Inicio</a></li>
+        <li><a href="index.html?filtro=men" onclick="filtrarPorGenero('men')">Hombre</a></li>
+        <li><a href="index.html?filtro=women  " onclick="filtrarPorGenero('women')">Mujer</a></li>
+        <li><a href="index.html?filtro=child"onclick="filtrarPorGenero('child')">Niño</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Redes</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+        <a href="https://x.com/?lang=es"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h3>Suscríbete</h3>
+      <p>Recibe lanzamientos y ofertas exclusivas.</p>
+      <form class="subscribe-form">
+        <input type="email" placeholder="Tu correo" />
+        <button type="submit">→</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 StepUp. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
+
+

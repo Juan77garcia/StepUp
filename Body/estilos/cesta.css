@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Thin 100 Italic;
+  font-family: arial;
   background: #f8f8f8;
 }
 
@@ -127,9 +127,6 @@ body {
   filter: none;
   transform: scale(1.05);
 }
-
-
-
 
 
 /*carrito*/
@@ -284,34 +281,7 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*resumen de la compra y boton para ir a pagar*/
 .checkout-container {
   display: flex;
   flex-wrap: wrap;
@@ -415,13 +385,7 @@ textarea {
 
 
 
-
-
-
-
-
-
-
+/*pie de pagina*/
 .footer {
   background-color: #0e0e0e;
   color: #ddd;
@@ -471,8 +435,56 @@ textarea {
   color: #fff;
 }
 
+.social-icons a {
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  color: #aaa;
+  transition: color 0.3s;
+}
 
-/* ----------- RESPONSIVE ----------- */
+.social-icons a:hover {
+  color: white;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
+  background: transparent;
+  color: white;
+  outline: none;
+  border-radius: 3px;
+}
+
+.subscribe-form button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+
+.subscribe-form button:hover {
+  background: #ddd;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* para adaptarlo a pantallas mas pequeñas */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;

@@ -1,138 +1,39 @@
 
 body {
   margin: 0;
-  font-family: Thin 100 Italic;
+  font-family: arial;
   background: #f8f8f8;
 }
 
-.producto-container {
+/*logo*/
+.logo-container {
+  width: 100px;
+  height: 100px;
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  padding: 60px;
-  max-width: 1200px;
-  margin: auto;
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  overflow: hidden;
 }
 
-.producto-imagen {
-  flex: 1;
-  min-width: 300px;
-  text-align: center;
+.logo {
+  width: 80px;
+  height: 80px;
+  animation: rotar 7s linear infinite;
 }
 
-.producto-imagen img {
-  max-width: 100%;
-  max-height: 500px;
-  border-radius: 12px;
-  object-fit: contain;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
+    
+    @keyframes rotar {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(-360deg);
+      }
+    }
 
-.producto-info {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.producto-info h2 {
-  font-size: 2rem;
-  margin: 0;
-  color: #111;
-}
-
-.producto-info p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
-
-.producto-info label {
-  font-weight: 600;
-  margin-top: 15px;
-}
-
-select, input[type="number"] {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 200px;
-}
-
-button#btn-cesta {
-  margin-top: 20px;
-  padding: 14px;
-  font-size: 1rem;
-  background-color: #111;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  width: 100%;
-  max-width: 250px;
-}
-
-
-
-/* Estilo para botones de tallas */
-.tallas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.talla-btn {
-  background: #f1f1f1;
-  border: 1px solid #ccc;
-  padding: 10px 8px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  text-align: center;
-  transition: 0.2s ease;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.talla-btn:hover {
-  background: #e2e2e2;
-}
-
-.talla-btn.selected {
-  border: 2px solid black;
-  background: #111;
-  color: white;
-}
-
-.talla-btn span {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #555;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*menu de navegación*/
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -230,46 +131,7 @@ button#btn-cesta {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.logo-container {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: 800px;
-  overflow: hidden;
-}
-
+/*Cesta de compras*/
 .carrito-lateral {
   position: fixed;
   top: 0;
@@ -418,11 +280,6 @@ button#btn-cesta {
   cursor: pointer;
   padding: 3px 6px;
 }
-
-
-
-
-
 #icono-favoritos {
   cursor: pointer;
   font-size: 20px;
@@ -431,33 +288,121 @@ button#btn-cesta {
 }
 
 
-
-
-.logo {
-  width: 80px;
-  height: 80px;
-  animation: rotar 7s linear infinite;
+/*zapatilla*/
+.producto-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 60px;
+  max-width: 1200px;
+  margin: auto;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  align-items: center;
 }
 
-    
-    @keyframes rotar {
-      from {
-        transform: rotateY(0deg);
-      }
-      to {
-        transform: rotateY(-360deg);
-      }
-    }
+.producto-imagen {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.producto-imagen img {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.producto-info {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.producto-info h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: #111;
+}
+
+.producto-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.producto-info label {
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+select, input[type="number"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 200px;
+}
+
+button#btn-cesta {
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 1rem;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+}
 
 
-  
+/* Estilo para botones de tallas */
+.tallas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.talla-btn {
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 10px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: 0.2s ease;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.talla-btn:hover {
+  background: #e2e2e2;
+}
+
+.talla-btn.selected {
+  border: 2px solid black;
+  background: #111;
+  color: white;
+}
+
+.talla-btn span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #555;
+}
 
 
-
-
-
-
-
+/*pie de pagina*/
 .footer {
   background-color: #0e0e0e;
   color: #ddd;
@@ -558,6 +503,8 @@ button#btn-cesta {
 
 
 
+
+/*adaptado para moviles*/
 
 @media (max-width: 768px) {
   .navbar-links {
