@@ -5,7 +5,7 @@ const MARCAS_VALIDAS = [
   "nike", "adidas", "jordan", "new balance", "converse",
   "puma", "reebok", "vans", "asics", "hoka one one"
   , "crocs", "salomon", "balenciaga", "gucci",
-  "alexander mcqueen", "dior", "off-white","golden goose,air jordan"
+  "alexander mcqueen", "dior", "off-white","golden goose","air jordan"
 ];
 
 let zapatillasCargadas = []; // Se guarda el resultado de la última búsqueda para usar en favoritos o carrito
@@ -579,7 +579,7 @@ function comprarAhora() {
 
 
  const toggleBtn = document.getElementById('toggleMenu');
-    const navLinks = document.getElementById('navbarLinks');
+    const navLinks = document.getElementById('navbarGeneros');
 
     toggleBtn.addEventListener('click', () => {
       navLinks.classList.toggle('active');

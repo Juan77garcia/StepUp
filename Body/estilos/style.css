@@ -45,12 +45,20 @@ body {
   top: 0;
   z-index: 10;
 }
-.navbar-links a {
+.navbar-generos a {
   margin: 0 10px;
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
+.navbar-generos a:hover {
+ border-style: solid;
+ padding: 5px;
+ border-radius: 17px;
+ border-color: rgb(208, 72, 72);
+ border-width: 2px;
+}
+
 .navbar-icons .material-icons {
   font-size: 24px;
   color: #111 !important; /* Fuerza el color negro */
@@ -70,7 +78,7 @@ body {
   margin-right: 10px;
 }
 /* Estilo básico de navegación */
-.navbar-links ul.navbar-menu {
+.navbar-generos ul.navbar-menu {
   list-style: none;
   display: flex;
   gap: 11px;
@@ -79,11 +87,11 @@ body {
   padding: 0;
 }
 
-.navbar-links ul.navbar-menu li {
+.navbar-generos ul.navbar-menu li {
   position: relative;
 }
 
-.navbar-links ul.navbar-menu li a {
+.navbar-generos ul.navbar-menu li a {
   text-decoration: none;
   font-weight: bold;
   color: black;
@@ -748,7 +756,7 @@ body {
 /*adaptar a pantallas más pequeñas*/
 
 @media (max-width: 768px) {
-  .navbar-links {
+  .navbar-generos {
     display: none;
     position: absolute;
     top: 60px;
@@ -760,7 +768,7 @@ body {
     z-index: 1000;
   }
 
-  .navbar-links.active {
+  .navbar-generos.active {
     display: block;
   }
 
