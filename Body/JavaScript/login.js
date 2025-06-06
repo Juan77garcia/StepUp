@@ -6,7 +6,7 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
   const mensaje = document.getElementById("mensaje");
 
   if (!email || !password) {
-    mensaje.textContent = "❌ Debes completar todos los campos.";
+    mensaje.textContent = "Debes completar todos los campos.";
     return;
   }
 
@@ -18,21 +18,21 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
       console.log("Respuesta login:", data);
 
       if (data === true) {
-        // ✅ Sesión correcta
+        //Sesión correcta
         mensaje.textContent = "✅ Sesión iniciada correctamente";
 
-        // 🔁 Guardar email
+        //Guardar email
         localStorage.setItem("usuarioLogeado", email);
 
-        // ✅ Ahora pedimos los datos del cliente
+        //Ahora pedimos los datos del cliente
         const clienteUrl = `https://stepup-proyect.onrender.com/customer/get/customer-by-email?email=${encodeURIComponent(email)}`;
 
         fetch(clienteUrl)
           .then(res => res.json())
           .then(cliente => {
-            console.log("📦 Datos del cliente:", cliente);
+            
 
-            // 🔁 Guardar nombre en localStorage
+            //Guardar nombre en localStorage
             if (cliente.name) {
               localStorage.setItem("nombreUsuario", cliente.name);
             }
@@ -46,15 +46,43 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
               } else {
                 window.location.href = "index.html";
               }
-            }, 1500);
+            },);
           });
 
       } else {
-        mensaje.textContent = "❌ Correo o contraseña incorrectos o cuenta no verificada.";
+        mensaje.textContent = " Correo o contraseña incorrectos o cuenta no verificada.";
       }
     })
     .catch(err => {
       console.error("Error al conectar:", err);
-      mensaje.textContent = "❌ Error al conectar con el servidor.";
+      mensaje.textContent = " Error al conectar con el servidor.";
     });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const emailGuardado = localStorage.getItem("usuarioLogeado");
+  const nombreGuardado = localStorage.getItem("nombreUsuario");
+
+  if (emailGuardado) {
+    const container = document.querySelector(".login-container");
+    container.innerHTML = `
+      <h2>Ya iniciaste sesión</h2>
+      <p>Hola <strong>${nombreGuardado || emailGuardado}</strong>, ya has iniciado sesión.</p>
+      <button id="irInicio">Ir al inicio</button>
+      <button id="cerrarSesion">Cerrar sesión</button>
+    `;
+
+    // Ir al inicio
+    document.getElementById("irInicio").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
+    // Cerrar sesión
+    document.getElementById("cerrarSesion").addEventListener("click", () => {
+      localStorage.removeItem("usuarioLogeado");
+      localStorage.removeItem("nombreUsuario");
+      window.location.reload(); // recarga la página para volver a mostrar el formulario
+    });
+  }
 });

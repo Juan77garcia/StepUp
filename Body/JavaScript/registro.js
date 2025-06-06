@@ -4,7 +4,7 @@ document.getElementById("register-form").addEventListener("submit", async functi
   const form = e.target;
 
   const name = form.nombre.value.trim();
-  const lastName = form.apellido?.value.trim(); // usar ? por si no existe
+  const lastName = form.apellido?.value.trim();
   const email = form.email.value.trim();
   const password = form.password.value;
   const address = form.direccion.value.trim();
@@ -23,10 +23,8 @@ document.getElementById("register-form").addEventListener("submit", async functi
     postalCode,
     birthdate,
     phone,
-    active: false
+    active: false // importante: crear cuenta inactiva
   };
-
-  console.log("✅ Datos enviados:", datos);
 
   try {
     const res = await fetch("https://stepup-proyect.onrender.com/customer", {
@@ -35,22 +33,18 @@ document.getElementById("register-form").addEventListener("submit", async functi
       body: JSON.stringify(datos)
     });
 
-    // Esperar texto primero
     const text = await res.text();
-
-    // Intentar parsear JSON si hay contenido
     let data = {};
     if (text) {
       try {
         data = JSON.parse(text);
       } catch (jsonErr) {
-        console.error("❌ Respuesta no es JSON válido:", text);
+        console.error("Respuesta no es JSON válido:", text);
       }
     }
 
-    // Mostrar verificación si todo va bien
     if (res.ok && data.ok !== false) {
-      
+      // Mostramos formulario de verificación
       document.querySelector(".register-container").innerHTML = `
         <h2>Verifica tu correo</h2>
         <p>Hemos enviado un código a <strong>${email}</strong>. Escríbelo abajo para activar tu cuenta.</p>
@@ -62,18 +56,18 @@ document.getElementById("register-form").addEventListener("submit", async functi
         <p id="mensaje-verificacion"></p>
       `;
 
-      // Verificar código
+      // Manejador del formulario de verificación
       document.getElementById("verify-form").addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        const codigo = document.querySelector('input[name="codigo"]').value;
-        const email = document.querySelector('input[name="email"]').value;
+        const codigo = document.querySelector('input[name="codigo"]').value.trim();
+        const email = document.querySelector('input[name="email"]').value.trim();
+        const mensaje = document.getElementById("mensaje-verificacion");
 
         try {
           const res = await fetch(`https://stepup-proyect.onrender.com/customer/get/verify/email?email=${email}&code=${codigo}`);
           const isValid = await res.json();
 
-          const mensaje = document.getElementById("mensaje-verificacion");
           if (isValid === true) {
             mensaje.textContent = "✅ Cuenta verificada correctamente. Redirigiendo al login...";
             setTimeout(() => window.location.href = "login.html", 2000);
@@ -81,17 +75,16 @@ document.getElementById("register-form").addEventListener("submit", async functi
             mensaje.textContent = "❌ Código incorrecto o expirado.";
           }
         } catch (err) {
-          console.error("❌ Error verificando código:", err);
-          document.getElementById("mensaje-verificacion").textContent = "❌ Error de red.";
+          console.error("Error verificando código:", err);
+          mensaje.textContent = "❌ Error de red o servidor.";
         }
       });
-    } else {
-      console.error("❌ Error en respuesta:", data);
-      document.getElementById("mensaje").textContent = "❌ No se pudo completar el registro. Verifica los datos.";
-    }
 
+    } else {
+      document.getElementById("mensaje").textContent = "❌ No se pudo registrar. Intenta con otro correo.";
+    }
   } catch (err) {
-    console.error("❌ Error inesperado:", err);
+    console.error("Error inesperado:", err);
     document.getElementById("mensaje").textContent = "❌ Error de red o servidor caído.";
   }
 });

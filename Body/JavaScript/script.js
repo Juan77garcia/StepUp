@@ -20,9 +20,9 @@ input.addEventListener("keyup", () => {
     ocultarHero();
     mostrarFiltros();
     document.getElementById("lanzamientos-2025").style.display = "none";
-  document.getElementById("publi").style.display = "none";
-  document.getElementById("genders").style.display = "none";
-  document.getElementById("destacados-inicio").style.display = "none";
+    document.getElementById("publi").style.display = "none";
+    document.getElementById("genders").style.display = "none";
+    document.getElementById("destacados-inicio").style.display = "none";
     document.getElementById("resultado").style.display = "grid";
     buscarZapatillas([{ nameField: "brand", value: marca }]);
   }
@@ -104,7 +104,7 @@ function buscarZapatillasSoloMarcasValidas() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      limit: "100", // Puedes ajustar si hay más
+      limit: "100", 
       criteria: criterios
     })
   })
@@ -158,7 +158,7 @@ function buscarZapatillas(criterios) {
   fetch("https://stepup-proyect.onrender.com/api", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ limit: 98, criteria: criterios })
+    body: JSON.stringify({ limit: 100, criteria: criterios })
   })
     .then(res => res.json())
     .then(data => {
@@ -194,36 +194,36 @@ function mostrarZapatillas(zapatillas) {
     card.className = "card-zapatilla";
 
     // 👉 Hacer clic en la tarjeta lleva a producto.html
-   card.addEventListener("click", () => {
+  card.addEventListener("click", () => {
   localStorage.setItem("productoSeleccionado", JSON.stringify(z));
   window.location.href = "producto.html";
 });
 
 
-    // 🖼️ Imagen principal
+    //Imagen principal
     const imgElement = document.createElement("img");
     imgElement.src = img;
     imgElement.alt = z.name;
 
-    // 🔍 Botón para ampliar imagen
+    //Botón para ampliar imagen
     const zoomBtn = document.createElement("span");
     zoomBtn.className = "zoom-icon";
     zoomBtn.textContent = "⤢";
-    zoomBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // ⛔ evita que se redireccione
+    zoomBtn.addEventListener("click", (zomm) => {
+      zomm.stopPropagation(); // evita que se redireccione
       ampliarZapatilla(img);
     });
 
-    // ❤️ Botón de favorito
+    //Botón de favorito
     const favBtn = document.createElement("button");
     favBtn.className = "favorito-btn";
     favBtn.textContent = esFavorito(z) ? "❤️" : "🤍";
     favBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // ⛔ evita que se redireccione
+      e.stopPropagation(); //evita que se redireccione
       toggleFavorito(z);
     });
 
-    // ℹ️ Info de zapatilla
+    //Info de zapatilla
     const info = document.createElement("div");
     info.className = "info";
     info.innerHTML = `
@@ -233,7 +233,7 @@ function mostrarZapatillas(zapatillas) {
       <p><strong>Precio:</strong> €${z.retailPrice || "N/A"}</p>
     `;
 
-    // 📦 Montar tarjeta
+    //Montar tarjeta
     card.appendChild(imgElement);
     card.appendChild(zoomBtn);
     card.appendChild(favBtn);
@@ -243,9 +243,9 @@ function mostrarZapatillas(zapatillas) {
 }
 
 
-// =========================
+
+
 // Favoritos
-// =========================
 
 function mostrarFavoritos() {
   const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -256,7 +256,7 @@ function mostrarFavoritos() {
   document.getElementById("publi").style.display = "none";
   document.getElementById("genders").style.display = "none";
   document.getElementById("destacados-inicio").style.display = "none";
-  document.getElementById("resultado").style.display = "grid"; // ✅ Mostrar contenedor
+  document.getElementById("resultado").style.display = "grid"; //Mostrar contenedor
 
   if (favoritos.length === 0) {
     document.getElementById("resultado").innerHTML = "<p>No tienes favoritos aún.</p>";
@@ -596,3 +596,7 @@ function comprarAhora() {
     nombreContenedor.textContent = `Hola, ${nombre}`;
   }
 });
+
+
+
+

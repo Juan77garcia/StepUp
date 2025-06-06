@@ -1,6 +1,6 @@
-// =========================
+
 // Verificar si el usuario está logeado
-// =========================
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <img src="${item.image}" alt="${item.name}">
       <div class="item-checkout-info">
         <p><strong>${item.name}</strong></p>
-        <p>Talla ${item.talla} × ${item.cantidad}</p>
+        <p>Talla ${item.talla} X ${item.cantidad}</p>
         <p>Precio unitario: €${item.retailPrice}</p>
         <p>Total: €${(item.retailPrice * item.cantidad).toFixed(2)}</p>
       </div>
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("pagar").onclick = async () => {
     const resultado = document.getElementById("resultado");
-    resultado.textContent = "⏳ Procesando...";
+    resultado.textContent = "Procesando...";
 
     const amountInCents = Math.round(total * 100);
 
@@ -60,16 +60,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (result.error) {
-        resultado.textContent = "❌ Error: " + result.error.message;
+        resultado.textContent = " Error: " + result.error.message;
         return;
       }
 
       if (result.paymentIntent.status === "succeeded") {
         resultado.textContent = "✅ ¡Pago exitoso! Generando factura...";
 
-        const emailCliente = localStorage.getItem("usuarioLogeado"); // 🟢 si prefieres mantener esta clave
+        const emailCliente = localStorage.getItem("usuarioLogeado"); //si prefieres mantener esta clave
         if (!emailCliente) {
-          resultado.textContent = "❌ No se encontró el correo del cliente.";
+          resultado.textContent = " No se encontró el correo del cliente.";
           return;
         }
 
@@ -94,16 +94,16 @@ document.addEventListener("DOMContentLoaded", async () => {
           setTimeout(() => window.location.href = "gracias.html", 3000);
 
         } catch (err) {
-          console.error("❌ Error al guardar pedido:", err);
+          console.error("Error al guardar pedido:", err);
           resultado.textContent = "✅ Pago exitoso, pero hubo un error al guardar el pedido.";
         }
       } else {
-        resultado.textContent = "⚠️ Estado de pago inesperado.";
+        resultado.textContent = "Estado de pago inesperado.";
       }
 
     } catch (error) {
-      console.error("❌ Error en el proceso de pago:", error);
-      resultado.textContent = "❌ Error al procesar el pago.";
+      console.error("Error en el proceso de pago:", error);
+      resultado.textContent = "Error al procesar el pago.";
     }
   };
 });
