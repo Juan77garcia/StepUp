@@ -352,7 +352,7 @@ function irACesta() {
 // Banner rotativo de inicio
 // =========================
 
-const imagenesBanner = ['img/prin8.png', 'img/prin24.png'];
+const imagenesBanner = ['img/prueba.png', 'img/prueba3.png', 'img/prueba2.png'];
 let indice = 0;
 const banner = document.getElementById('banner-img');
 

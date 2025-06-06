@@ -48,15 +48,11 @@ body {
 .navbar-generos a {
   margin: 0 10px;
   text-decoration: none;
-  color: black;
+  color: rgb(0, 0, 0);
   font-weight: bold;
 }
 .navbar-generos a:hover {
- border-style: solid;
- padding: 5px;
- border-radius: 17px;
- border-color: rgb(208, 72, 72);
- border-width: 2px;
+ color: #007bff;
 }
 
 .navbar-icons .material-icons {
@@ -154,15 +150,7 @@ body {
 }
 .hero-banner img {
   width: 100%;
-  height: auto;
-  border-radius: 20px;
-  border: 2px solid #eaeaea; /* como si tuviera un marco blanco suave */
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-}
-
-
-.hero-banner img:hover {
-  transform: scale(1.005); /* mini zoom */
 }
 
 .hero-banner.hidden {
