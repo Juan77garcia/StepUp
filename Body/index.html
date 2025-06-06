@@ -14,9 +14,9 @@
   <header class="navbar">
 
     <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
-    <div class="navbar-toggle" id="toggleMenu">
-        ☰
-    </div>
+    <button class="navbar-toggle" id="toggleMenu">
+      <i class="fas fa-bars"></i>
+    </button>
 
     <nav class="navbar-generos" id="navbarGeneros">
   <ul class="navbar-menu">
@@ -52,8 +52,6 @@
         </div>
       </div>
     </li>
-
-    <li><a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a></li>
   </ul>
 </nav>
 
@@ -222,16 +220,15 @@
   <!-- Carrito lateral -->
 <div id="carrito-modal" class="carrito-lateral oculto">
   <div class="carrito-contenido">
-    <button onclick="cerrarCarrito()" class="cerrar-carrito">X</button>
+    <button onclick="cerrarCarrito()" class="cerrar-carrito">×</button>
     <h3>Tu cesta</h3>
     <ul id="lista-carrito"></ul>
-    <p><strong>Total:</strong> €<span id="total-carrito">0</span></p>
-
-<!-- Nuevo botón "Ir a la cesta" -->
-<button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
-
-<!-- Botón "Seguir comprando" -->
-<button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
+    <div class="price-line total">
+      <strong>Total:</strong>
+      <strong>€<span id="total-carrito">0</span></strong>
+    </div>
+    <button onclick="irACesta()" class="ir-cesta-btn">Ir a la cesta</button>
+    <button onclick="cerrarCarrito()" class="seguir-btn">Seguir comprando</button>
   </div>
 </div>
 <!-- Modal para zapatilla ampliada -->

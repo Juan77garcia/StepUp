@@ -292,27 +292,37 @@ function mostrarCarrito() {
   const modal = document.getElementById("carrito-modal");
   const lista = document.getElementById("lista-carrito");
   const total = document.getElementById("total-carrito");
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
   lista.innerHTML = "";
+  let suma = 0;
 
   if (carrito.length === 0) {
-    lista.innerHTML = `<p class="vacio">La cesta está vacía</p>`;
+    lista.innerHTML = `<li class="vacio">La cesta está vacía</li>`;
     total.textContent = "0";
   } else {
-    let suma = 0;
     carrito.forEach((zapa, i) => {
-      const precioTotal = zapa.retailPrice * zapa.cantidad;
+      const subtotal = zapa.retailPrice * zapa.cantidad;
 
       const item = document.createElement("li");
-      item.innerHTML = `
-        ${zapa.name} - €${precioTotal.toFixed(2)}
-        <button onclick="eliminarDelCarrito(${i})">X</button>
-      `;
-      lista.appendChild(item);
+      item.classList.add("item-carrito");
 
-      suma += precioTotal;
+      item.innerHTML = `
+        <div class="carrito-producto">
+          <img src="${zapa.image}" alt="${zapa.name}" class="zapa-img-carrito">
+          <div class="carrito-detalles">
+            <strong>${zapa.name}</strong>
+            <p>Talla ${zapa.talla} X ${zapa.cantidad}</p>
+            <p class="price-line">€${subtotal.toFixed(2)}</p>
+            <button onclick="eliminarDelCarrito(${i})" class="btn-eliminar">Quitar</button>
+          </div>
+        </div>
+      `;
+
+      lista.appendChild(item);
+      suma += subtotal;
     });
+
     total.textContent = suma.toFixed(2);
   }
 
@@ -596,7 +606,3 @@ function comprarAhora() {
     nombreContenedor.textContent = `Hola, ${nombre}`;
   }
 });
-
-
-
-

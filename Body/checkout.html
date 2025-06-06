@@ -4,73 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cesta | StepUp</title>
-  <link rel="stylesheet" href="estilos/cesta.css" />
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="estilos/style.css" />
+  <link rel="stylesheet" href="estilos/checkout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
   <!--Menu de navegación-->
      <header class="navbar">
-
     <a href="index.html"><img src="img/logo.png" alt="StepUp Logo" class="logo" /></a>
-    <nav class="navbar-links">
-  <ul class="navbar-menu">
-    <li><a href="index.html" onclick="mostrarInicio()">Inicio</a></li>
-    <li><a href="#" onclick="filtrarPorGenero('men')">Hombres</a></li>
-    <li><a href="#" onclick="filtrarPorGenero('women')">Mujeres</a></li>
-    <li><a href="#" onclick="filtrarPorGenero('child')">Niño</a></li>
-    <li><a href="#" onclick="filtrarPorGenero('unisex')">Unisex</a></li>
+    <button class="navbar-toggle" id="toggleMenu">
+      <i class="fas fa-bars"></i>
+    </button>
 
-    <li class="menu-item marcas-hover">
-      <a href="#">Marcas ⬇️</a>
-      <div class="menu-marcas">
-        <div class="grid-marcas">
-            <img src="img/nike.jpg" alt="Nike" data-marca="nike" />
-          <img src="img/Adidas.png" alt="Adidas" data-marca="adidas" />
-          <img src="img/conv.jpg" alt="Converse" data-marca="converse" />
-          <img src="img/balance.png" alt="New Balance" data-marca="new balance" />
-          <img src="img/jordan.jpg" alt="Jordan" data-marca="jordan" />
-          <img src="img/puma.png" alt="Puma" data-marca="puma" />
-          <img src="img/crocs.png" alt="Crocs" data-marca="crocs" />
-          <img src="img/asics.png" alt="Asics" data-marca="asics" />
-          <img src="img/vans.png" alt="Vans" data-marca="vans" />
-          <img src="img/alexander.png " alt="ALEXANDER MCQUEEN" data-marca="ALEXANDER MCQUEEN" />
-          <img src="img/salomin.jpg" alt="Salomon" data-marca="salomon" />
-          <img src="img/reebok.png" alt="Reebok" data-marca="reebok" />
-          <img src="img/hoka.png" alt="Hoka" data-marca="hoka one one" />
-          <img src="img/off.jpg" alt="OFF-WHITE" data-marca="OFF-WHITE" />
-          <img src="img/dior.jpg" alt="DIOR" data-marca="DIOR" />
-          <img src="img/logobalenciaga.jpeg" alt="balenciaga" data-marca="balenciaga" />
-          <img src="img/logogolde.jpeg" alt="golden goose" data-marca="golden goose" />
-          <img src="img/logogucci.jpeg" alt="gucci" data-marca="gucci" />
-          <img src="img/logoversa.jpeg" alt="Versace" data-marca="Versace" />
-        </div>
+    <nav class="navbar-generos" id="navbarGeneros">
+      <ul class="navbar-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html?filtro=men">Hombres</a></li>
+        <li><a href="index.html?filtro=women">Mujeres</a></li>
+        <li><a href="index.html?filtro=child">Niños</a></li>
+        <li><a href="index.html?filtro=unisex">Unisex</a></li>
+        <li class="menu-item marcas-hover">
+          <a href="#">Marcas ⬇️</a>
+          <div class="menu-marcas">
+            <div class="grid-marcas">
+              <img src="img/nike.jpg" alt="Nike" data-marca="nike" />
+              <img src="img/Adidas.png" alt="Adidas" data-marca="adidas" />
+              <img src="img/conv.jpg" alt="Converse" data-marca="converse" />
+              <img src="img/balance.png" alt="New Balance" data-marca="new balance" />
+              <img src="img/jordan.jpg" alt="Jordan" data-marca="jordan" />
+              <img src="img/puma.png" alt="Puma" data-marca="puma" />
+              <img src="img/crocs.png" alt="Crocs" data-marca="crocs" />
+              <img src="img/asics.png" alt="Asics" data-marca="asics" />
+              <img src="img/vans.png" alt="Vans" data-marca="vans" />
+              <img src="img/alexander.png" alt="ALEXANDER MCQUEEN" data-marca="alexander mcqueen" />
+              <img src="img/salomin.jpg" alt="Salomon" data-marca="salomon" />
+              <img src="img/reebok.png" alt="Reebok" data-marca="reebok" />
+              <img src="img/hoka.png" alt="Hoka" data-marca="hoka one one" />
+              <img src="img/off.jpg" alt="off-white" data-marca="off-white" />
+              <img src="img/dior.jpg" alt="dior" data-marca="dior" />
+              <img src="img/gucci.png" alt="gucci" data-marca="gucci" />
+              <img src="img/balenciaga.jpg" alt="balenciaga" data-marca="balenciaga" />
+              <img src="img/logogolde.jpeg" alt="golden goose" data-marca="golden goose" />
+              <img src="img/logoversa.jpeg" alt="versace" data-marca="versace" />
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="navbar-icons">
+      <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
+
+      <i class="fas fa-heart" id="icono-favoritos" onclick="mostrarFavoritos()" title="Favoritos"></i>
+
+      <!-- Contenedor de login + nombre -->
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <a href="login.html" title="Iniciar sesión">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <span id="nombre-usuario" style="font-size: 12px;"></span>
       </div>
-    </li>
 
-    <li><a href="#" onclick="buscarZapatillasSoloMarcasValidas()">Todo</a></li>
-  </ul>
-</nav>
-
-  <div class="navbar-icons">
-  <input type="text" id="marcaInput" placeholder="Buscar por marca..." />
-
-  <i class="fas fa-heart" id="icono-favoritos" onclick="mostrarFavoritos()" title="Favoritos"></i>
-
-  <!-- Contenedor de login + nombre -->
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <a href="login.html" title="Iniciar sesión">
-      <i class="fa-regular fa-user"></i>
-    </a>
-    <span id="nombre-usuario" style="font-size: 12px;"></span>
-  </div>
-
-  <i class="fas fa-shopping-cart" id="carrito-icono" onclick="mostrarCarrito()" title="Carrito">
-    <span id="contador-carrito">0</span>
-  </i>
-</div>
-
-
+      <i class="fas fa-shopping-cart" id="carrito-icono" onclick="mostrarCarrito()" title="Carrito">
+        <span id="contador-carrito">0</span>
+      </i>
+    </div>
   </header>
 
 

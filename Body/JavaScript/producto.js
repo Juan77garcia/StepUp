@@ -89,7 +89,7 @@ function mostrarCarrito() {
   let suma = 0;
 
   if (carrito.length === 0) {
-    lista.innerHTML = `<li>La cesta está vacía</li>`;
+    lista.innerHTML = `<li class="vacio">La cesta está vacía</li>`;
     total.textContent = "0";
   } else {
     carrito.forEach((zapa, i) => {
@@ -99,12 +99,14 @@ function mostrarCarrito() {
       item.classList.add("item-carrito");
 
       item.innerHTML = `
-        <img src="${zapa.image}" alt="${zapa.name}">
-        <div class="info-zapa-carrito">
-          <strong>${zapa.name}</strong>
-          <p>Talla ${zapa.talla} x ${zapa.cantidad}</p>
-          <p>Total: €${subtotal.toFixed(2)}</p>
-          <button onclick="eliminarDelCarrito(${i})">Quitar</button>
+        <div class="carrito-producto">
+          <img src="${zapa.image}" alt="${zapa.name}" class="zapa-img-carrito">
+          <div class="carrito-detalles">
+            <strong>${zapa.name}</strong>
+            <p>Talla ${zapa.talla} X ${zapa.cantidad}</p>
+            <p class="price-line">€${subtotal.toFixed(2)}</p>
+            <button onclick="eliminarDelCarrito(${i})" class="btn-eliminar">Quitar</button>
+          </div>
         </div>
       `;
 
