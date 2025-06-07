@@ -35,8 +35,8 @@ tallas.forEach(t => {
 });
 
 function obtenerTallasPorGenero(genero) {
-  if (genero === "child") return [28, 29, 30, 31, 32, 33, 34, 35];
-  return [38, 39, 40, 41, 42, 43, 44, 45];
+  if (genero === "child") return [25,26,27,28, 29, 30, 31, 32, 33, 34, 35];
+  return [38, 39, 40, 41, 42, 43, 44, 45,46];
 }
 
 // =========================
@@ -206,3 +206,10 @@ function buscarZapatillasSoloMarcasValidas() {
     nombreContenedor.textContent = `Hola, ${nombre}`;
   }
 });
+
+const toggleBtn = document.getElementById('toggleMenu');
+    const navLinks = document.getElementById('navbarGeneros');
+
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });

@@ -67,10 +67,20 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================
 function finalizarCompra() {
   const total = document.getElementById("total").textContent.replace("€", "").trim();
-  localStorage.setItem("totalFinal", total); // guarda el total si quieres usarlo en pago.html
+  const usuario = localStorage.getItem("usuarioLogeado");
 
-  window.location.href = `pago.html?total=${total}`;
+  if (!usuario) {
+    // Usuario no logueado: redirigir al login y guardar intención
+    localStorage.setItem("redirigirAPago", "true");
+    localStorage.setItem("totalFinal", total); // guardar el total por si se redirige
+    window.location.href = "login.html";
+  } else {
+    // Usuario logueado: ir directamente a la página de pago
+    localStorage.setItem("totalFinal", total);
+    window.location.href = `pago.html?total=${total}`;
+  }
 }
+
 
 
 // =========================
@@ -229,3 +239,11 @@ function mostrarFavoritos() {
     nombreContenedor.textContent = `Hola, ${nombre}`;
   }
 });
+
+
+ const toggleBtn = document.getElementById('toggleMenu');
+    const navLinks = document.getElementById('navbarGeneros');
+
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });

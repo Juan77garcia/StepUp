@@ -362,7 +362,7 @@ function irACesta() {
 // Banner rotativo de inicio
 // =========================
 
-const imagenesBanner = ['img/prueba.png', 'img/prueba3.png', 'img/prueba2.png'];
+const imagenesBanner = ['img/prueba.webp', 'img/prueba3.webp', 'img/prueba2.webp'];
 let indice = 0;
 const banner = document.getElementById('banner-img');
 
@@ -548,15 +548,15 @@ window.addEventListener('scroll', animarLanzamiento);
 
 const imagenesSlider = [
   {
-    img: "img/publli2.png",
+    img: "img/publli2.webp",
     marca: "crocs"
   },
   {
-    img: "img/publi3.png",
+    img: "img/publi3.webp",
     marca: "puma"
   },
   {
-    img: "img/publi1.png",
+    img: "img/publi1.webp",
     marca: "off-white"
   }
 ];

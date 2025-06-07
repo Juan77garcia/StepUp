@@ -2,6 +2,7 @@ document.getElementById("register-form").addEventListener("submit", async functi
   e.preventDefault();
 
   const form = e.target;
+  const mensaje = document.getElementById("mensaje");
 
   const name = form.nombre.value.trim();
   const lastName = form.apellido?.value.trim();
@@ -23,8 +24,12 @@ document.getElementById("register-form").addEventListener("submit", async functi
     postalCode,
     birthdate,
     phone,
-    active: false // importante: crear cuenta inactiva
+    active: false
   };
+
+  // 🟡 Mostrar mensaje de carga
+  mensaje.textContent = "⏳ Procesando registro...";
+  mensaje.classList.add("cargando");
 
   try {
     const res = await fetch("https://stepup-proyect.onrender.com/customer", {
@@ -43,8 +48,11 @@ document.getElementById("register-form").addEventListener("submit", async functi
       }
     }
 
+    // 🔵 Ocultar mensaje de carga
+    mensaje.classList.remove("cargando");
+
     if (res.ok && data.ok !== false) {
-      // Mostramos formulario de verificación
+      // Mostrar formulario de verificación
       document.querySelector(".register-container").innerHTML = `
         <h2>Verifica tu correo</h2>
         <p>Hemos enviado un código a <strong>${email}</strong>. Escríbelo abajo para activar tu cuenta.</p>
@@ -56,13 +64,15 @@ document.getElementById("register-form").addEventListener("submit", async functi
         <p id="mensaje-verificacion"></p>
       `;
 
-      // Manejador del formulario de verificación
+      // Verificación del código
       document.getElementById("verify-form").addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const codigo = document.querySelector('input[name="codigo"]').value.trim();
         const email = document.querySelector('input[name="email"]').value.trim();
         const mensaje = document.getElementById("mensaje-verificacion");
+
+        mensaje.textContent = "⏳ Verificando código...";
 
         try {
           const res = await fetch(`https://stepup-proyect.onrender.com/customer/get/verify/email?email=${email}&code=${codigo}`);
@@ -81,10 +91,11 @@ document.getElementById("register-form").addEventListener("submit", async functi
       });
 
     } else {
-      document.getElementById("mensaje").textContent = "❌ No se pudo registrar. Intenta con otro correo.";
+      mensaje.textContent = "❌ No se pudo registrar. Intenta con otro correo.";
     }
   } catch (err) {
     console.error("Error inesperado:", err);
-    document.getElementById("mensaje").textContent = "❌ Error de red o servidor caído.";
+    mensaje.classList.remove("cargando");
+    mensaje.textContent = "❌ Error de red o servidor caído.";
   }
 });

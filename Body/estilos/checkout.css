@@ -824,3 +824,40 @@ textarea:focus {
     font-size: 0.9rem;
   }
 } 
+
+@media (max-width: 768px) {
+  .cart-left,
+  .cart-summary {
+    padding: 10px !important;
+    border-radius: 10px !important;
+    font-size: 0.97rem !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+  }
+  .cart-left h1,
+  .cart-summary h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 8px !important;
+  }
+  .price-line,
+  .price-line.total {
+    font-size: 1rem !important;
+    padding: 6px 0 !important;
+    margin: 10px 0 !important;
+  }
+  .btn-final {
+    font-size: 0.98rem !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+  }
+  textarea {
+    font-size: 0.95rem !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    min-height: 60px !important;
+  }
+  .cart-items .item {
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+}
