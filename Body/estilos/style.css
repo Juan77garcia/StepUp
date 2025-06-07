@@ -847,16 +847,16 @@ body {
 /* Responsive */
 @media (max-width: 480px) {
   .carrito-lateral {
-    width: 100%;
-    padding: 20px;
+    width: 90%;
+    padding: 0px;
   }
 
   .carrito-contenido h3 {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
 
   .item-carrito {
-    padding: 15px;
+    padding: 70px;
   }
 
   .zapa-img-carrito {
@@ -865,7 +865,7 @@ body {
   }
 
   .carrito-detalles strong {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .carrito-detalles p {

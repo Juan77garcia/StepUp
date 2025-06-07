@@ -799,31 +799,31 @@ textarea:focus {
 /* Responsive */
 @media (max-width: 480px) {
   .carrito-lateral {
-    width: 100%;
-    padding: 20px;
+    width: 90%;
+    padding: 0px;
   }
 
   .carrito-contenido h3 {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
 
-  .carrito-contenido li {
-    padding: 15px;
+  .item-carrito {
+    padding: 70px;
   }
 
-  .carrito-contenido img {
+  .zapa-img-carrito {
     width: 80px;
     height: 80px;
   }
 
-  .info-zapa-carrito strong {
-    font-size: 1rem;
-  }
-
-  .info-zapa-carrito p {
+  .carrito-detalles strong {
     font-size: 0.9rem;
   }
-} 
+
+  .carrito-detalles p {
+    font-size: 0.9rem;
+  }
+}
 
 @media (max-width: 768px) {
   .cart-left,
